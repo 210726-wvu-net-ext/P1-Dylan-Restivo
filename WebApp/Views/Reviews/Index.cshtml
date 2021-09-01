@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Models.Reviews>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <td> Restaurant list </td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var reviews in Model)
+        {
+            <tr>
+                <td>
+                    @reviews.Content
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
