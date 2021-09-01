@@ -29,7 +29,10 @@ namespace WebApp
             services.AddScoped<IReviewRepo, ReviewRepo>();
 
             services.AddDbContext<MyTestContext>(options => {
-                options.UseSqlServer(Configuration.GetConnectionString("ReviewsDb"))});
+                options.UseSqlServer(Configuration.GetConnectionString("ReviewsDb"));
+                options.LogTo(Console.WriteLine);
+
+                });
                      
             services.AddControllersWithViews();
         }

@@ -1,7 +1,5 @@
-﻿using DL;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,40 +7,27 @@ using System.Threading.Tasks;
 
 namespace WebApp.Controllers
 {
-    public class ReviewsController : Controller
+    public class RestaurantsController : Controller
     {
-        private readonly IReviewRepo _reviewrepo;
-
-        public ReviewsController(IReviewRepo reviewRepo)
-        {
-            _reviewrepo = reviewRepo;
-        }
-        // GET: ReviewsController
+        // GET: RestaurantsController
         public ActionResult Index()
         {
-            var viewModel = _reviewrepo.GetAllReviews().Select(r => new Reviews
-            {
-                Rating = r.Rating,
-                Content = r.Content,
-                RestaurantId = r.RestaurantId
-            }) ;
-
-            return View(viewModel);
+            return View();
         }
 
-        // GET: ReviewsController/Details/5
+        // GET: RestaurantsController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: ReviewsController/Create
+        // GET: RestaurantsController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: ReviewsController/Create
+        // POST: RestaurantsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -57,13 +42,13 @@ namespace WebApp.Controllers
             }
         }
 
-        // GET: ReviewsController/Edit/5
+        // GET: RestaurantsController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: ReviewsController/Edit/5
+        // POST: RestaurantsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -78,13 +63,13 @@ namespace WebApp.Controllers
             }
         }
 
-        // GET: ReviewsController/Delete/5
+        // GET: RestaurantsController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: ReviewsController/Delete/5
+        // POST: RestaurantsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
