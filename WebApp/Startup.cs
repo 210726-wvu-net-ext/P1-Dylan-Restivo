@@ -28,9 +28,9 @@ namespace WebApp
         {
             services.AddScoped<IReviewRepo, ReviewRepo>();
 
-            services.AddDbContext<MyTestContext>(options =>
-                     options.UseSqlServer(Configuration.GetConnectionString("ReviewsDb")));
-
+            services.AddDbContext<MyTestContext>(options => {
+                options.UseSqlServer(Configuration.GetConnectionString("ReviewsDb"))});
+                     
             services.AddControllersWithViews();
         }
 
