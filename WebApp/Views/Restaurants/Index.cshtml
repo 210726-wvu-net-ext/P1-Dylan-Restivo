@@ -1,11 +1,11 @@
-﻿@model IEnumerable<Models.Reviews>
+﻿@model IEnumerable<Models.Restaurant>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">Welcome Restaurants</h1>
 </div>
 
 <table>
@@ -15,11 +15,11 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var reviews in Model)
+        @foreach (var restaurant in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelReviews => reviews.Rating);
+                    @Html.DisplayFor(modelRestaurant => restaurant.Name);
                 </td>
             </tr>
         }

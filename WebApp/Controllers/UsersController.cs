@@ -8,34 +8,33 @@ using System.Threading.Tasks;
 
 namespace WebApp.Controllers
 {
-    public class RestaurantsController : Controller
+    public class UsersController : Controller
     {
         private readonly IReviewRepo _reviewRepo;
 
-        public RestaurantsController(IReviewRepo reviewRepo)
+        public UsersController(IReviewRepo reviewRepo)
         {
             _reviewRepo = reviewRepo;
         }
-        // GET: RestaurantsController
-        [Route("/all", Name = "restaurants")]
+        // GET: Users
         public ActionResult Index()
         {
-            return View(_reviewRepo.GetAllRestaurants());
+            return View(_reviewRepo.GetAllUsers());
         }
 
-        // GET: RestaurantsController/Details/5
+        // GET: Users/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: RestaurantsController/Create
+        // GET: Users/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: RestaurantsController/Create
+        // POST: Users/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -50,13 +49,13 @@ namespace WebApp.Controllers
             }
         }
 
-        // GET: RestaurantsController/Edit/5
+        // GET: Users/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: RestaurantsController/Edit/5
+        // POST: Users/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -71,13 +70,13 @@ namespace WebApp.Controllers
             }
         }
 
-        // GET: RestaurantsController/Delete/5
+        // GET: Users/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: RestaurantsController/Delete/5
+        // POST: Users/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

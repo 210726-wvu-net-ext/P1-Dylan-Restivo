@@ -11,23 +11,17 @@ namespace WebApp.Controllers
 {
     public class ReviewsController : Controller
     {
-        private readonly IReviewRepo _reviewrepo;
+        private readonly IReviewRepo _reviewRepo;
 
         public ReviewsController(IReviewRepo reviewRepo)
         {
-            _reviewrepo = reviewRepo;
+            _reviewRepo = reviewRepo;
         }
         // GET: ReviewsController
+        [Route("/all", Name = "reviews-all")]
         public ActionResult Index()
         {
-            var viewModel = _reviewrepo.GetAllReviews().Select(r => new Reviews
-            {
-                Rating = r.Rating,
-                Content = r.Content,
-                RestaurantId = r.RestaurantId
-            }) ;
-
-            return View(viewModel);
+            return View(_reviewRepo.GetAllReviews());
         }
 
         // GET: ReviewsController/Details/5
