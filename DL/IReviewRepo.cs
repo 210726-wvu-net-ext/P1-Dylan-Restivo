@@ -35,5 +35,6 @@ namespace DL
         bool GetUserName(string userName);
 
         Users GetUserId(string username);
+        bool LoginWebApp(string username, string password);
     }
 }

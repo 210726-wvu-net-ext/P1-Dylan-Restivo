@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
@@ -16,6 +17,33 @@ namespace WebApp.Controllers
         {
             _reviewRepo = reviewRepo;
         }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(UserViewModel activeUser)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Login", activeUser);
+            }
+
+            if (_reviewRepo.LoginWebApp(activeUser.UserName, activeUser.Password) is true)
+            {
+                ViewBag.Username = activeUser.UserName;
+                TempData["user"] = activeUser.UserName;
+                TempData.Peek("user");
+                return Redirect("~/Home/Index");
+            }
+            else
+            {
+                return View("Error");
+            }
+        }
+
         // GET: Users
         public ActionResult Index()
         {
@@ -50,12 +78,6 @@ namespace WebApp.Controllers
         }
 
         // GET: Users/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Users/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)

@@ -8,11 +8,11 @@ namespace DL
 {
     public class ReviewRepo : IReviewRepo
     {
-    private MyTestContext _context;
-    public ReviewRepo(MyTestContext context)
-    {
-        _context = context;
-    }
+        private MyTestContext _context;
+        public ReviewRepo(MyTestContext context)
+        {
+            _context = context;
+        }
         public List<Models.Restaurant> GetAllRestaurants()
         {
             return _context.Restaurants.Select(
@@ -23,7 +23,7 @@ namespace DL
         public List<Models.Users> GetAllUsers()
         {
             return _context.Users.Select(
-                users => new Models.Users(users.Name, users.UserName,users.Password, users.Id)
+                users => new Models.Users(users.Name, users.UserName, users.Password, users.Id)
             ).ToList();
         }
 
@@ -35,7 +35,7 @@ namespace DL
             ).ToList();
         }
 
-        public List<Models.Reviews> GetAvgRatings(int id){
+        public List<Models.Reviews> GetAvgRatings(int id) {
             Console.WriteLine("Searching for average...");
             return _context.Reviews.Where(reviews => reviews.RestaurantId == id)
             .Select(
@@ -45,27 +45,27 @@ namespace DL
         }
 
 
-    //Search for restaurant by name
+        //Search for restaurant by name
         public Models.Restaurant GetRestaurantByName(string name)
         {
             Entities.Restaurant foundRestaurant = _context.Restaurants
             .FirstOrDefault(restaurant => restaurant.Name == name);
-            if(foundRestaurant != null)
+            if (foundRestaurant != null)
             {
                 return new Models.Restaurant(foundRestaurant.Id, foundRestaurant.Name, foundRestaurant.Zipcode);
-            }    
+            }
             return new Models.Restaurant();
-    
+
         }
-            //Search for restaurant by id
+        //Search for restaurant by id
         public Models.Restaurant GetRestaurantById(int id)
         {
             Entities.Restaurant foundRestaurant = _context.Restaurants
             .FirstOrDefault(restaurant => restaurant.Id == id);
-            if(foundRestaurant != null)
+            if (foundRestaurant != null)
             {
                 return new Models.Restaurant(foundRestaurant.Id, foundRestaurant.Name, foundRestaurant.Zipcode);
-            }    
+            }
             return new Models.Restaurant();
         }
         public Models.Users GetUserById(int id)
@@ -73,24 +73,24 @@ namespace DL
             Entities.User foundUser = _context.Users
             .FirstOrDefault(user => user.Id == id);
             Console.WriteLine($"Id {id}");
-            try{
+            try {
                 return new Models.Users(foundUser.Name, foundUser.UserName, foundUser.Password, foundUser.Id);
-            }catch(NullReferenceException)
+            } catch (NullReferenceException)
             {
                 return null;
             }
         }
-    
+
         public Models.Restaurant RestaurantLookupZip(string zipcode)
         {
             Entities.Restaurant foundRestaurant = _context.Restaurants
             .FirstOrDefault(restaurant => restaurant.Zipcode == zipcode);
-            if(foundRestaurant != null)
+            if (foundRestaurant != null)
             {
                 return new Models.Restaurant(foundRestaurant.Id, foundRestaurant.Name, foundRestaurant.Zipcode);
-            }    
+            }
             return new Models.Restaurant();
-    
+
         }
 
         public List<Models.Reviews> GetReviewsByRestaurantId(int restaurantId)
@@ -106,7 +106,7 @@ namespace DL
         public Models.Reviews AddAReview(Models.Reviews review)
         {
             _context.Reviews.Add(
-                new Entities.Review{
+                new Entities.Review {
                     Rating = review.Rating,
                     Content = review.Content,
                     RestaurantId = review.RestaurantId
@@ -117,9 +117,9 @@ namespace DL
             return review;
         }
 
-        public Models.Users AddAUser(Models.Users userToAdd){
+        public Models.Users AddAUser(Models.Users userToAdd) {
             _context.Users.Add(
-                new Entities.User{
+                new Entities.User {
                     Name = userToAdd.Name,
                     UserName = userToAdd.UserName,
                     Password = userToAdd.Password
@@ -134,13 +134,13 @@ namespace DL
         {
             Entities.Restaurant foundRestaurant = _context.Restaurants
             .FirstOrDefault(restaurant => restaurant.Name == name);
-            if(foundRestaurant != null)
+            if (foundRestaurant != null)
             {
                 return new Models.Restaurant(foundRestaurant.Id, foundRestaurant.Name, foundRestaurant.Zipcode);
-            }else{
+            } else {
                 return null;
             }
-            
+
         }
 
         public Models.Users GetUserPassword(string userName)
@@ -148,7 +148,7 @@ namespace DL
             Entities.User foundUser = _context.Users.FirstOrDefault(
                 foundUser => foundUser.UserName == userName
             );
-            if(foundUser != null)
+            if (foundUser != null)
             {
                 return new Models.Users(foundUser.Name, foundUser.UserName, foundUser.Password);
             }
@@ -160,8 +160,8 @@ namespace DL
             Entities.Admin foundAdmin = _context.Admins.FirstOrDefault(
                 foundAdmin => foundAdmin.Id == 1
             );
-                return foundAdmin.Password;
-   
+            return foundAdmin.Password;
+
         }
 
         public bool GetUserName(string userName)
@@ -169,7 +169,7 @@ namespace DL
             Entities.User foundUser = _context.Users.FirstOrDefault(
                 foundUser => foundUser.UserName == userName
             );
-            if(foundUser != null)
+            if (foundUser != null)
             {
                 return true;
             }
@@ -180,11 +180,32 @@ namespace DL
         {
             Entities.User foundUser = _context.Users
             .FirstOrDefault(users => users.Name == userName);
-            if(foundUser != null)
+            if (foundUser != null)
             {
                 return new Models.Users(foundUser.Name, foundUser.UserName, foundUser.Password, foundUser.Id);
-            }    
+            }
             return new Models.Users();
+        }
+
+        public bool LoginWebApp(string username, string password)
+        {
+            try {
+                Entities.User foundUser = _context.Users
+                .FirstOrDefault(users => users.Name == username);
+                if (foundUser != null)
+                {
+                    if (foundUser.Password == password)
+                    {
+                        return true;
+                    }
+                }
+                
+            }//end try
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return false;
         }
 
     }

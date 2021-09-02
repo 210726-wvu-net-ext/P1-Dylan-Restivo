@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace DL.Entities
+namespace WebApp.Entities
 {
     public partial class MyTestContext : DbContext
     {
@@ -21,8 +21,6 @@ namespace DL.Entities
         public virtual DbSet<Restaurant> Restaurants { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<User> Users { get; set; }
-
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -47,8 +45,16 @@ namespace DL.Entities
 
             modelBuilder.Entity<Restaurant>(entity =>
             {
+                entity.Property(e => e.Cuisine)
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Name)
                     .IsRequired()
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Street)
                     .HasMaxLength(30)
                     .IsUnicode(false);
 

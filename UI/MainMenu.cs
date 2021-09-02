@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Models;
 
 namespace UI
+
 {
 
     /// <summary>
@@ -426,7 +427,7 @@ namespace UI
                 -------------------------------------------
                 Review: {review.Content} 
                 Rating: {review.Rating}
-                ReviewDate: {review.ReviewDate}
+                ReviewDate: {review.Date}
                 -------------------------------------------
                 ");
             }

@@ -20,13 +20,24 @@ namespace WebApp.Controllers
         [Route("/all", Name = "restaurants")]
         public ActionResult Index()
         {
+             
+
             return View(_reviewRepo.GetAllRestaurants());
         }
 
         // GET: RestaurantsController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            if (id <=0)
+            {
+                return NotFound();
+            }
+            var restaurant = _reviewRepo.GetRestaurantById(id);
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+            return View(restaurant);
         }
 
         // GET: RestaurantsController/Create

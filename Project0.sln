@@ -11,7 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI", "UI\UI.csproj", "{6ACE8965-EC96-4BBE-949A-6100E95063B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{7D7D0ED5-12A0-461A-A4AF-8365729697AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "WebApp\WebApp.csproj", "{7D7D0ED5-12A0-461A-A4AF-8365729697AA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6ACE8965-EC96-4BBE-949A-6100E95063B8} = {6ACE8965-EC96-4BBE-949A-6100E95063B8}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

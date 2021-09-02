@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace DL.Entities
+namespace WebApp.Entities
 {
     public partial class Review
     {
@@ -11,7 +11,7 @@ namespace DL.Entities
         public string Content { get; set; }
         public DateTime? ReviewDate { get; set; }
         public int? UserId { get; set; }
-        public int RestaurantId { get; set; }
+        public int? RestaurantId { get; set; }
         public int Rating { get; set; }
 
         public virtual Restaurant Restaurant { get; set; }

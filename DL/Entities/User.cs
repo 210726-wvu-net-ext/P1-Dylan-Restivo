@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace DL.Entities
+namespace WebApp.Entities
 {
     public partial class User
     {

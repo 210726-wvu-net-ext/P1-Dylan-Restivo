@@ -9,14 +9,18 @@ namespace Models
             this.Name = name;
         }
 
-        public Restaurant(int id,string name, string zipcode) : this(name)
+        public Restaurant(string name, string zipcode, string street, string cuisine) : this(name)
         {
-            this.Id = id;
             this.ZipCode = zipcode;
+            this.Street = street;
+            this.Cuisine = cuisine;
         }
         public int Id { get; set; }
         public string Name { get; set; }
         public string ZipCode { get; set; }
+        public string Street { get; set; }
+        public string Cuisine { get; set; }
         public List<Reviews> Reviews { get; set; }
+        
     }
 }
