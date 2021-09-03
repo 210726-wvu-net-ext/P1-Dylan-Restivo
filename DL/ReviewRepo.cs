@@ -16,7 +16,7 @@ namespace DL
         public List<Models.Restaurant> GetAllRestaurants()
         {
             return _context.Restaurants.Select(
-                restaurant => new Models.Restaurant(restaurant.Id, restaurant.Name, restaurant.Zipcode)
+                restaurant => new Models.Restaurant(restaurant.Name, restaurant.Zipcode, restaurant.Street, restaurant.Cuisine)
             ).ToList();
         }
 
@@ -52,7 +52,7 @@ namespace DL
             .FirstOrDefault(restaurant => restaurant.Name == name);
             if (foundRestaurant != null)
             {
-                return new Models.Restaurant(foundRestaurant.Id, foundRestaurant.Name, foundRestaurant.Zipcode);
+                return new Models.Restaurant(foundRestaurant.Name, foundRestaurant.Zipcode, foundRestaurant.Street, foundRestaurant.Cuisine);
             }
             return new Models.Restaurant();
 
@@ -64,7 +64,7 @@ namespace DL
             .FirstOrDefault(restaurant => restaurant.Id == id);
             if (foundRestaurant != null)
             {
-                return new Models.Restaurant(foundRestaurant.Id, foundRestaurant.Name, foundRestaurant.Zipcode);
+                return new Models.Restaurant(foundRestaurant.Name, foundRestaurant.Zipcode, foundRestaurant.Street, foundRestaurant.Cuisine);
             }
             return new Models.Restaurant();
         }
@@ -87,7 +87,7 @@ namespace DL
             .FirstOrDefault(restaurant => restaurant.Zipcode == zipcode);
             if (foundRestaurant != null)
             {
-                return new Models.Restaurant(foundRestaurant.Id, foundRestaurant.Name, foundRestaurant.Zipcode);
+                return new Models.Restaurant(foundRestaurant.Name, foundRestaurant.Zipcode, foundRestaurant.Street, foundRestaurant.Cuisine);
             }
             return new Models.Restaurant();
 
@@ -136,7 +136,7 @@ namespace DL
             .FirstOrDefault(restaurant => restaurant.Name == name);
             if (foundRestaurant != null)
             {
-                return new Models.Restaurant(foundRestaurant.Id, foundRestaurant.Name, foundRestaurant.Zipcode);
+                return new Models.Restaurant(foundRestaurant.Name, foundRestaurant.Zipcode, foundRestaurant.Street, foundRestaurant.Cuisine);
             } else {
                 return null;
             }

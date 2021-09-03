@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace WebApp.Entities
+namespace DL.Entities
 {
     public partial class Admin
     {

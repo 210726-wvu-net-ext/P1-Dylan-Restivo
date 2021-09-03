@@ -1,5 +1,4 @@
-﻿using DL;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,9 +10,9 @@ namespace WebApp.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly IReviewRepo _reviewRepo;
+        private readonly DL.IReviewRepo _reviewRepo;
 
-        public UsersController(IReviewRepo reviewRepo)
+        public UsersController(DL.IReviewRepo reviewRepo)
         {
             _reviewRepo = reviewRepo;
         }

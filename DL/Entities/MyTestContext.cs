@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace WebApp.Entities
+namespace DL.Entities
 {
     public partial class MyTestContext : DbContext
     {
