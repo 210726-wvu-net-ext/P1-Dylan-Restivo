@@ -117,18 +117,7 @@ namespace DL
             return review;
         }
 
-        public Models.Users AddAUser(Models.Users userToAdd) {
-            _context.Users.Add(
-                new Entities.User {
-                    Name = userToAdd.Name,
-                    UserName = userToAdd.UserName,
-                    Password = userToAdd.Password
-                }
-            );
-            _context.SaveChanges();
 
-            return userToAdd;
-        }
 
         public Models.Restaurant GetRestaurantForAdd(string name)
         {
@@ -176,20 +165,12 @@ namespace DL
             return false;
         }
 
-        public Models.Users GetUserId(string userName)
-        {
-            Entities.User foundUser = _context.Users
-            .FirstOrDefault(users => users.Name == userName);
-            if (foundUser != null)
-            {
-                return new Models.Users(foundUser.Name, foundUser.UserName, foundUser.Password, foundUser.Id);
-            }
-            return new Models.Users();
-        }
+
 
         public bool LoginWebApp(string username, string password)
         {
-            try {
+            try
+            {
                 Entities.User foundUser = _context.Users
                 .FirstOrDefault(users => users.Name == username);
                 if (foundUser != null)
@@ -199,7 +180,7 @@ namespace DL
                         return true;
                     }
                 }
-                
+
             }//end try
             catch (Exception e)
             {
@@ -207,6 +188,88 @@ namespace DL
             }
             return false;
         }
+
+        public Models.Users GetUserObj(string userName)
+        {
+            Entities.User foundUser = _context.Users
+            .FirstOrDefault(users => users.Name == userName);
+            if (foundUser != null)
+            {
+                return new Models.Users(foundUser.Name, foundUser.UserName, foundUser.Password, foundUser.Id);
+            }
+            return new Models.Users();
+        }
+        /*
+         --------------------------------------------
+        CRUD methods for P1
+        ---------------------------------------------
+         */
+
+        ///Restaurant
+        public void CreateRestaurant(Models.Restaurant restaurant)
+            {
+                var entity = new Entities.Restaurant { Name = restaurant.Name, Zipcode = restaurant.ZipCode, Street = restaurant.Street, Cuisine = restaurant.Cuisine };
+                _context.Restaurants.Add(entity);
+                _context.SaveChanges();
+            }
+
+            public void DeleteRestaurant(string id)
+            {
+                var entity = _context.Restaurants.First(rest => rest.Id == Convert.ToInt32(id));
+                _context.Remove(entity);
+                _context.SaveChanges();
+            }
+
+        ///Users
+        public void CreateUser(Models.Users user)
+        {
+            _context.Users.Add( new Entities.User { Name = user.Name, UserName = user.UserName,Password = user.Password });
+            _context.SaveChanges();
+        }
+
+        /// <summary>
+        ///   Users can change password
+        /// </summary>
+        /// <param name="user"></param>
+        public void UpdateUser(Models.Users user)
+            {
+                var entity = _context.Users.First(u => u.Name == user.Name);
+                entity.Password = user.Password;
+                _context.SaveChanges();
+            }
+
+            public void DeleteUser(string name)
+            {
+                var entity = _context.Users.First(u => u.Name == name);
+                _context.Remove(entity);
+                _context.SaveChanges();
+            }
+
+        /// Reviews
+        public void CreateReview(Models.Reviews review) 
+        { 
+            _context.Reviews.Add(new Entities.Review{ Rating = review.Rating, Content = review.Content, RestaurantId = review.RestaurantId });
+            _context.SaveChanges();
+        }
+        /// <summary>
+        /// Able to update content and rating of review
+        /// </summary>
+        /// <param name="review"></param>
+        public void UpdateReview(Models.Reviews review)
+            {
+                var entity = _context.Reviews.First(r => r.Id == review.Id);
+                entity.Content = review.Content;
+                entity.Rating = review.Rating;
+                _context.SaveChanges();
+            }
+
+        public void DeleteUReview(int id)
+        {
+            var entity = _context.Users.First(rev => rev.Id == id);
+            _context.Remove(entity);
+            _context.SaveChanges();
+        }
+
 
     }
 }

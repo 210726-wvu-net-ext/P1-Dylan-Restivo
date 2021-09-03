@@ -6,7 +6,11 @@ namespace WebApp.ViewModels
 {
     public class UserViewModel
     {
-        [Display(Name = "User Name")]
+        [Display(Name = "Name")]
+        [Required, RegularExpression("[A-Z].*")]
+        public string Name { get; set; }
+
+        [Display(Name = "Username")]
         [Required, RegularExpression("[A-Z].*")]
         public string UserName { get; set; }
 

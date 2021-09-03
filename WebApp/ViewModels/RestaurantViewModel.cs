@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace WebApp.ViewModels
 {
-    public class RestaurantViewModel : Controller
+    public class RestaurantViewModel
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+
+
     }
 }

@@ -9,6 +9,14 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+@*<p>
+    @if (TempData.ContainsKey("CreatedUser"))
+    {
+        @:most recently created location: @TempData.Peek("CreatedLocation")
+    }
+</p>*@
+
 <table class="table">
     <thead>
         <tr>
@@ -43,9 +51,9 @@
                 @Html.DisplayFor(modelItem => item.Password)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new { id = item.Name }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Name }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Name })
             </td>
         </tr>
 }

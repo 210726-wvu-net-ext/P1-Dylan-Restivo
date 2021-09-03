@@ -14,17 +14,12 @@ namespace DL
         List<Reviews> GetAvgRatings(int id);
 
         Restaurant GetRestaurantByName(string name);
-        Restaurant GetRestaurantById(int id);
 
-        Users GetUserById(int id);
+        Restaurant GetRestaurantById(int id);
 
         Restaurant RestaurantLookupZip(string zipcode);
 
         List<Models.Reviews> GetReviewsByRestaurantId(int restaurantId);
-
-        Reviews AddAReview(Reviews review);
-
-        Users AddAUser(Users AddAUser);
 
         Restaurant GetRestaurantForAdd(string name);
 
@@ -32,9 +27,18 @@ namespace DL
 
         string GetAdminPassword();
 
+        Users GetUserById(int id);
+
         bool GetUserName(string userName);
 
-        Users GetUserId(string username);
         bool LoginWebApp(string username, string password);
+
+        Users GetUserObj(string username);
+
+        void DeleteUser(string username);
+
+        void CreateUser(Users user);
+
+        void UpdateUser(Users user);
     }
 }
