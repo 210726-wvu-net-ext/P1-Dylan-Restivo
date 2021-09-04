@@ -231,10 +231,11 @@ namespace DL
         ///   Users can change password
         /// </summary>
         /// <param name="user"></param>
-        public void UpdateUser(Models.Users user)
+        public void UpdateUser(string id, Models.Users user)
             {
-                var entity = _context.Users.First(u => u.Name == user.Name);
-                entity.Password = user.Password;
+            Entities.User foundUser = _context.Users.FirstOrDefault(
+            foundUser => foundUser.Name == id);
+            foundUser.Password = user.Password;
                 _context.SaveChanges();
             }
 

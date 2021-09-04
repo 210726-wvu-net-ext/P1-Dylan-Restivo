@@ -93,20 +93,21 @@ namespace WebApp.Controllers
         }
 
         [Route("Users/Edit/{id}")]
-        public ActionResult Edit()
+        public ActionResult Edit(string id)
         {
-            return View();
+            var user = _reviewRepo.GetUserObj(id);
+            return View(user);
         }
 
         // GET: Users/Edit/5
         [HttpPost("Users/Edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(string id, IFormCollection collection)
+        public ActionResult Edit(string id, Models.Users user, IFormCollection collection)
         {
             try
             {
-                Models.Users user = _reviewRepo.GetUserObj(id);
-                _reviewRepo.UpdateUser(user);
+
+                _reviewRepo.UpdateUser(id, user);
                 return RedirectToAction(nameof(Index));
             }
             catch

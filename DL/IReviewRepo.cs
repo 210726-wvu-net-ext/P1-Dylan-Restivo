@@ -33,12 +33,12 @@ namespace DL
 
         bool LoginWebApp(string username, string password);
 
-        Users GetUserObj(string username);
+        Users GetUserObj(string name);
 
         void DeleteUser(string username);
 
         void CreateUser(Users user);
 
-        void UpdateUser(Users user);
+        void UpdateUser(string id, Users user);
     }
 }
