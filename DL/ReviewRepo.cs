@@ -13,27 +13,7 @@ namespace DL
         {
             _context = context;
         }
-        public List<Models.Restaurant> GetAllRestaurants()
-        {
-            return _context.Restaurants.Select(
-                restaurant => new Models.Restaurant(restaurant.Name, restaurant.Zipcode, restaurant.Street, restaurant.Cuisine)
-            ).ToList();
-        }
 
-        public List<Models.Users> GetAllUsers()
-        {
-            return _context.Users.Select(
-                users => new Models.Users(users.Name, users.UserName, users.Password, users.Id)
-            ).ToList();
-        }
-
-
-        public List<Models.Reviews> GetAllReviews()
-        {
-            return _context.Reviews.Select(
-                reviews => new Models.Reviews(reviews.Rating, reviews.Content, reviews.RestaurantId)
-            ).ToList();
-        }
 
         public List<Models.Reviews> GetAvgRatings(int id) {
             Console.WriteLine("Searching for average...");
@@ -117,20 +97,13 @@ namespace DL
             return review;
         }
 
+/// <summary>
+/// Methods used for P1. Other needs to be removed
+/// </summary>
+/// <param name="userName"></param>
+/// <returns></returns>
 
 
-        public Models.Restaurant GetRestaurantForAdd(string name)
-        {
-            Entities.Restaurant foundRestaurant = _context.Restaurants
-            .FirstOrDefault(restaurant => restaurant.Name == name);
-            if (foundRestaurant != null)
-            {
-                return new Models.Restaurant(foundRestaurant.Name, foundRestaurant.Zipcode, foundRestaurant.Street, foundRestaurant.Cuisine);
-            } else {
-                return null;
-            }
-
-        }
 
         public Models.Users GetUserPassword(string userName)
         {
@@ -189,6 +162,12 @@ namespace DL
             return false;
         }
 
+        /// <summary>
+        /// "Get obj" methods
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+
         public Models.Users GetUserObj(string userName)
         {
             Entities.User foundUser = _context.Users
@@ -199,6 +178,63 @@ namespace DL
             }
             return new Models.Users();
         }
+
+        public Models.Restaurant GetRestaurantObj(string name)
+        {
+            Entities.Restaurant foundRestaurant = _context.Restaurants
+            .FirstOrDefault(restaurant => restaurant.Name == name);
+            if (foundRestaurant != null)
+            {
+                return new Models.Restaurant(foundRestaurant.Name, foundRestaurant.Zipcode, foundRestaurant.Street, foundRestaurant.Cuisine);
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+        public Models.Reviews GetReviewObj(int id)
+        {
+            Entities.Review foundReview = _context.Reviews
+            .FirstOrDefault(review => review.Id == id);
+            if (foundReview != null)
+            {
+                return new Models.Reviews(foundReview.Rating, foundReview.Content, foundReview.RestaurantId);
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+        /// <summary>
+        /// "Get all" methods
+        /// </summary>
+        /// <returns></returns>
+        public List<Models.Restaurant> GetAllRestaurants()
+        {
+            return _context.Restaurants.Select(
+                restaurant => new Models.Restaurant(restaurant.Name, restaurant.Zipcode, restaurant.Street, restaurant.Cuisine)
+            ).ToList();
+        }
+
+        public List<Models.Users> GetAllUsers()
+        {
+            return _context.Users.Select(
+                users => new Models.Users(users.Name, users.UserName, users.Password, users.Id)
+            ).ToList();
+        }
+
+        public List<Models.Reviews> GetAllReviews()
+        {
+            return _context.Reviews.Select(
+                reviews => new Models.Reviews(reviews.Rating, reviews.Content, reviews.RestaurantId)
+            ).ToList();
+        }
+
+
         /*
          --------------------------------------------
         CRUD methods for P1
@@ -239,12 +275,12 @@ namespace DL
                 _context.SaveChanges();
             }
 
-            public void DeleteUser(string name)
-            {
-                var entity = _context.Users.First(u => u.Name == name);
-                _context.Remove(entity);
-                _context.SaveChanges();
-            }
+         public void DeleteUser(string name)
+         {
+              var entity = _context.Users.First(u => u.Name == name);
+              _context.Remove(entity);
+              _context.SaveChanges();
+         }
 
         /// Reviews
         public void CreateReview(Models.Reviews review) 
@@ -256,15 +292,15 @@ namespace DL
         /// Able to update content and rating of review
         /// </summary>
         /// <param name="review"></param>
-        public void UpdateReview(Models.Reviews review)
+        public void UpdateReview(int id, Models.Reviews review)
             {
-                var entity = _context.Reviews.First(r => r.Id == review.Id);
-                entity.Content = review.Content;
-                entity.Rating = review.Rating;
+                var foundReview = _context.Reviews.First(r => r.Id == id);
+                foundReview.Content = review.Content;
+                foundReview.Rating = review.Rating;
                 _context.SaveChanges();
             }
 
-        public void DeleteUReview(int id)
+        public void DeleteReview(int id)
         {
             var entity = _context.Users.First(rev => rev.Id == id);
             _context.Remove(entity);

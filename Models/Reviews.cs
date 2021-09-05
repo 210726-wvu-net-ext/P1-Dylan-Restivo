@@ -5,6 +5,12 @@ namespace Models
     public class Reviews
     {
         public Reviews(){}
+        public Reviews(int rating, string content)
+        {
+            this.Rating = rating;
+            this.Content = content;
+            this.Date = DateTime.Now;
+        }
         public Reviews(int rating, string content, int restaurantId){
             this.Rating = rating;
             this.Content = content;

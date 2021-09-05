@@ -1,10 +1,12 @@
 ﻿using DL;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
@@ -17,42 +19,47 @@ namespace WebApp.Controllers
             _reviewRepo = reviewRepo;
         }
         // GET: RestaurantsController
-        [Route("/all", Name = "restaurants")]
+        [Route("Restaurants/Index")]
         public ActionResult Index()
         {
-             
-
-            return View(_reviewRepo.GetAllRestaurants());
+            var restaurants = _reviewRepo.GetAllRestaurants().ToList();
+            return View(restaurants);
         }
 
         // GET: RestaurantsController/Details/5
-        public ActionResult Details(int id)
+        [Route("Restaurants/Details/{name}")]
+        [Authorize]
+        public ActionResult Details(string name)
         {
-            if (id <=0)
-            {
-                return NotFound();
-            }
-            var restaurant = _reviewRepo.GetRestaurantById(id);
-            if (restaurant == null)
-            {
-                return NotFound();
-            }
-            return View(restaurant);
+            var restaurants = _reviewRepo.GetAllRestaurants().First(r => r.Name == name);
+            return View(restaurants);
         }
 
         // GET: RestaurantsController/Create
+        [Route("Restaurants/Create")]
+        [Authorize]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: RestaurantsController/Create
-        [HttpPost]
+        // POST: Restaurants/Create
+        [HttpPost("Restaurants/Create")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(RestaurantViewModel viewModel)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(viewModel);
+                }
+
+                var restaurant = new Models.Restaurant(viewModel.Name, viewModel.ZipCode, viewModel.Street, viewModel.Cuisine);
+                _reviewRepo.CreateRestaurant(restaurant);
+
+                TempData["CreatedRestaurant"] = restaurant.Name;
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -61,45 +68,53 @@ namespace WebApp.Controllers
             }
         }
 
-        // GET: RestaurantsController/Edit/5
-        public ActionResult Edit(int id)
+        //[Route("Restaurants/Edit/{id}")]
+        //public ActionResult Edit(string id)
+        //{
+        //    var restaurant = _reviewRepo.GetRestaurantObj(id);
+        //    return View(restaurant);
+        //}
+
+        //// GET: Restaurants/Edit/5
+        //[HttpPost("Restaurants/Edit/{id}")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit(string id, Models.Restaurant restaurant, IFormCollection collection)
+        //{
+        //    try
+        //    {
+
+        //        _reviewRepo.UpdateRestaurant(id, restaurant);
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
+
+        // GET: Restaurants/Delete/5
+        [Route("Restaurants/Delete/{id}")]
+        public ActionResult Delete(string id)
         {
-            return View();
+            var restaurant = _reviewRepo.GetAllRestaurants().First(x => x.Name == id);
+            return View(restaurant);
         }
 
-        // POST: RestaurantsController/Edit/5
-        [HttpPost]
+        // POST: Restaurants/Delete/5
+        [HttpPost("Restaurants/Delete/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Delete(string id, IFormCollection collection)
         {
             try
             {
+                _reviewRepo.DeleteRestaurant(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
-            }
-        }
-
-        // GET: RestaurantsController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: RestaurantsController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
+                // ADD ERROR MESSAGE
+                var restaurant = _reviewRepo.GetAllRestaurants().First(x => x.Name == id);
+                return View(restaurant);
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
 
 namespace WebApp.ViewModels
 {
@@ -16,5 +16,6 @@ namespace WebApp.ViewModels
 
         [Required]
         public string Password { get; set; }
+
     }
 }

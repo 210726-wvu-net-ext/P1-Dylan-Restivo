@@ -17,32 +17,32 @@ namespace WebApp.Controllers
             _reviewRepo = reviewRepo;
         }
 
-        [Route("Login")]
-        public IActionResult Login()
-        {
-            return View();
-        }
+        //[Route("Users/Login")]
+        //public IActionResult Login()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost("Login")]
-        public IActionResult Login(UserViewModel activeUser)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(activeUser);
-            }
+        //[HttpPost("Login")]
+        //public IActionResult Login(Models.Users activeUser)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(activeUser);
+        //    }
 
-            if (_reviewRepo.LoginWebApp(activeUser.UserName, activeUser.Password) is true)
-            {
-                ViewBag.Username = activeUser.UserName;
-                TempData["user"] = activeUser.UserName;
-                TempData.Keep("user");
-                return Redirect("~/Home/Index");
-            }
-            else
-            {
-                return View("Error");
-            }
-        }
+        //    if (_reviewRepo.LoginWebApp(activeUser.UserName, activeUser.Password) is true)
+        //    {
+        //        ViewBag.Username = activeUser.UserName;
+        //        TempData["user"] = activeUser.UserName;
+        //        TempData.Keep("user");
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    else
+        //    {
+        //        return View("Error");
+        //    }
+        //}
 
         // GET: Users
         [Route("Users/Index")]
@@ -131,14 +131,14 @@ namespace WebApp.Controllers
         {
             try
             {
-                _reviewRepo.DeleteUser(id);
+                _reviewRepo.DeleteRestaurant(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                //AD ERROR MESSAGE
-                var location = _reviewRepo.GetAllUsers().First(x => x.Name == id);
-                return View(location);
+                // ADD ERROR MESSAGE
+                var user = _reviewRepo.GetAllUsers().First(x => x.Name == id);
+                return View(user);
             }
         }
     }

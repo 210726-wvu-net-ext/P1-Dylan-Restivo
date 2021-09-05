@@ -13,7 +13,6 @@ namespace DL
 
         List<Reviews> GetAvgRatings(int id);
 
-        Restaurant GetRestaurantByName(string name);
 
         Restaurant GetRestaurantById(int id);
 
@@ -21,7 +20,6 @@ namespace DL
 
         List<Models.Reviews> GetReviewsByRestaurantId(int restaurantId);
 
-        Restaurant GetRestaurantForAdd(string name);
 
         Users GetUserPassword(string userName);
 
@@ -35,10 +33,23 @@ namespace DL
 
         Users GetUserObj(string name);
 
-        void DeleteUser(string username);
+        Restaurant GetRestaurantObj(string name);
+
+        void DeleteRestaurant(string username);
 
         void CreateUser(Users user);
 
         void UpdateUser(string id, Users user);
+
+        void CreateRestaurant(Restaurant restaurant);
+        void CreateReview(Reviews review);
+
+        Reviews GetReviewObj(int id);
+
+        void UpdateReview(int id, Reviews review);
+
+        void DeleteReview(int id);
+
+        //void UpdateRestaurant(string id, Restaurant restaurant);
     }
 }

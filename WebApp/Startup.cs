@@ -1,5 +1,6 @@
 using DL;
 using DL.Entities;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApp.ViewModels;
 
 namespace WebApp
 {
@@ -33,7 +35,15 @@ namespace WebApp
                 options.LogTo(Console.WriteLine);
 
                 });
-                     
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                 {
+                    options.LoginPath = "/Account/Login";
+                 });
+
+            services.Configure<List<UserToLogin>>(Configuration.GetSection("Users"));
+
             services.AddControllersWithViews();
         }
 
@@ -54,6 +64,8 @@ namespace WebApp
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

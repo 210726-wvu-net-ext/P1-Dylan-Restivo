@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
@@ -18,31 +19,49 @@ namespace WebApp.Controllers
             _reviewRepo = reviewRepo;
         }
         // GET: ReviewsController
-        [Route("/all", Name = "reviews-all")]
+        [Route("Reviews/Index")]
         public ActionResult Index()
         {
-            return View(_reviewRepo.GetAllReviews());
+            var reviews = _reviewRepo.GetAllReviews().ToList();
+            return View(reviews);
         }
 
         // GET: ReviewsController/Details/5
+        [Route("Reviews/Details/{id}")]
         public ActionResult Details(int id)
         {
-            return View();
+            var reviews = _reviewRepo.GetAllReviews().First(r => r.Id == id);
+            return View(reviews);
         }
 
         // GET: ReviewsController/Create
+        [Route("Reviews/Create")]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: ReviewsController/Create
-        [HttpPost]
+        // POST: Users/Create
+        [HttpPost("Reviews/Create")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(/*string street,*/ ReviewsViewModel viewModel)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(viewModel);
+                }
+                //try
+                //{
+                //    _reviewRepo.GetRestaurantObj(street);
+                //}
+
+                var review = new Models.Reviews(viewModel.Rating, viewModel.Content);
+                _reviewRepo.CreateReview(review);
+
+                TempData["CreatedReview"] = review.Id;
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -52,18 +71,22 @@ namespace WebApp.Controllers
         }
 
         // GET: ReviewsController/Edit/5
+        [Route("Reviews/Edit/{id}")]
         public ActionResult Edit(int id)
         {
-            return View();
+            var review = _reviewRepo.GetReviewObj(id);
+            return View(review);
         }
 
-        // POST: ReviewsController/Edit/5
-        [HttpPost]
+        // GET: Reviews/Edit/5
+        [HttpPost("Reviews/Edit/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Models.Reviews review, IFormCollection collection)
         {
             try
             {
+
+                _reviewRepo.UpdateReview(id, review);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -73,23 +96,20 @@ namespace WebApp.Controllers
         }
 
         // GET: ReviewsController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ReviewsController/Delete/5
-        [HttpPost]
+        [HttpPost("Reviews/Delete/{id}")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
             try
             {
+                _reviewRepo.DeleteReview(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                // ADD ERROR MESSAGE
+                var review = _reviewRepo.GetAllReviews().First(x => x.Id == id);
+                return View(review);
             }
         }
     }
