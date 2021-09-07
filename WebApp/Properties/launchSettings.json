@@ -1,4 +1,4 @@
-﻿{
+{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
@@ -12,7 +12,10 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Production"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "VaultUri": "https://dr-asp-key.vault.azure.net/",
+        "AZURE_USERNAME": "slivercommander@yahoo.com",
+        "MyKey": "https://dr-asp-key.vault.azure.net/"
       }
     },
     "WebApp": {
@@ -21,7 +24,10 @@
       "launchBrowser": true,
       "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Production"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "VaultUri": "https://dr-asp-key.vault.azure.net/",
+        "AZURE_USERNAME": "slivercommander@yahoo.com",
+        "MyKey": "https://dr-asp-key.vault.azure.net/"
       }
     }
   }
