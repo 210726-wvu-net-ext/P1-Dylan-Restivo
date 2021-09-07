@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DL;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,38 +14,19 @@ namespace WebApp.Controllers
     public class UsersController : Controller
     {
         private readonly DL.IReviewRepo _reviewRepo;
+        private IReviewRepo object1;
+        private ILogger<UsersController> object2;
 
-        public UsersController(DL.IReviewRepo reviewRepo)
+        public UsersController(object @object, DL.IReviewRepo reviewRepo)
         {
             _reviewRepo = reviewRepo;
         }
 
-        //[Route("Users/Login")]
-        //public IActionResult Login()
-        //{
-        //    return View();
-        //}
-
-        //[HttpPost("Login")]
-        //public IActionResult Login(Models.Users activeUser)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(activeUser);
-        //    }
-
-        //    if (_reviewRepo.LoginWebApp(activeUser.UserName, activeUser.Password) is true)
-        //    {
-        //        ViewBag.Username = activeUser.UserName;
-        //        TempData["user"] = activeUser.UserName;
-        //        TempData.Keep("user");
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    else
-        //    {
-        //        return View("Error");
-        //    }
-        //}
+        public UsersController(IReviewRepo object1, ILogger<UsersController> object2)
+        {
+            this.object1 = object1;
+            this.object2 = object2;
+        }
 
         // GET: Users
         [Route("Users/Index")]
@@ -83,11 +67,12 @@ namespace WebApp.Controllers
                 _reviewRepo.CreateUser(user);
 
                 TempData["CreatedUser"] = user.Name;
-
+                Log.Debug("Creation successful!");
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
+                Log.Error("Error: Model stat invalid");
                 return View();
             }
         }
@@ -112,6 +97,7 @@ namespace WebApp.Controllers
             }
             catch
             {
+                Log.Error("Error in User/Edit");
                 return View();
             }
         }
@@ -136,7 +122,7 @@ namespace WebApp.Controllers
             }
             catch
             {
-                // ADD ERROR MESSAGE
+                Log.Error("Error in User/Delete");
                 var user = _reviewRepo.GetAllUsers().First(x => x.Name == id);
                 return View(user);
             }

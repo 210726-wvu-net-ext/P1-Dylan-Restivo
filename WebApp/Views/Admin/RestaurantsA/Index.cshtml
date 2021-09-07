@@ -4,7 +4,18 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Local restaurants</h1>
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<p>
+    @if (TempData.ContainsKey("CreatedRestaurant"))
+    {
+        @:most recently created restaurant: @TempData.Peek("CreatedRestaurant")
+    }
+</p>
 
 <table class="table">
     <thead>

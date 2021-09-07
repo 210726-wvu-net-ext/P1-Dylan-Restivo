@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +19,13 @@ namespace WebApp.Controllers
         {
             _reviewRepo = reviewRepo;
         }
+
+
         // GET: ReviewsController
         [Route("Reviews/Index")]
         public ActionResult Index()
         {
-            var reviews = _reviewRepo.GetAllReviews().ToList();
+            var reviews = _reviewRepo.GetAllReviews();
             return View(reviews);
         }
 
@@ -30,7 +33,7 @@ namespace WebApp.Controllers
         [Route("Reviews/Details/{id}")]
         public ActionResult Details(int id)
         {
-            var reviews = _reviewRepo.GetAllReviews().First(r => r.Id == id);
+            var reviews = _reviewRepo.GetReviewsByRestaurantId(id);
             return View(reviews);
         }
 
@@ -61,11 +64,12 @@ namespace WebApp.Controllers
                 _reviewRepo.CreateReview(review);
 
                 TempData["CreatedReview"] = review.Id;
-
+                Log.Debug("Creation successful!");
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
+                Log.Error("Error: Model stat invalid");
                 return View();
             }
         }
@@ -91,6 +95,7 @@ namespace WebApp.Controllers
             }
             catch
             {
+                Log.Error("Error in Review/Edit");
                 return View();
             }
         }
@@ -107,7 +112,7 @@ namespace WebApp.Controllers
             }
             catch
             {
-                // ADD ERROR MESSAGE
+                Log.Error("Error in Review/Delete");
                 var review = _reviewRepo.GetAllReviews().First(x => x.Id == id);
                 return View(review);
             }

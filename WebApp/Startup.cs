@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,11 @@ namespace WebApp
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            Log.Logger = new LoggerConfiguration()
+                    .MinimumLevel.Debug()
+                    .WriteTo.File("../logs/petlog.txt, rollingInterval:RollingInterval.Data")
+                    .CreateLogger();
+            Log.Information("UI beginning");
         }
 
         public IConfiguration Configuration { get; }
@@ -39,7 +45,8 @@ namespace WebApp
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                  {
-                    options.LoginPath = "/Account/Login";
+                     
+                     options.LoginPath = "/Account/Login";
                  });
 
             services.Configure<List<UserToLogin>>(Configuration.GetSection("Users"));
@@ -66,7 +73,6 @@ namespace WebApp
             app.UseRouting();
 
             app.UseAuthentication();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

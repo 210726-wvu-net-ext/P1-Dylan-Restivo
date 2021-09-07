@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Models.Reviews>
+
+    @{
+        ViewData["Title"] = "Index";
+    }
+
+    <h1>Reviews</h1>
+
+    <div class="review-partial">
+        @foreach (var review in Model)
+        {
+        <partial name="_ReviewsPartial" model="review"  />
+        }
+    </div>

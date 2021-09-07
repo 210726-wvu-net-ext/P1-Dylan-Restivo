@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Dynamic;
+
 namespace Models
 {
     public class Restaurant
@@ -20,7 +22,7 @@ namespace Models
         public string ZipCode { get; set; }
         public string Street { get; set; }
         public string Cuisine { get; set; }
-        public List<Reviews> Reviews { get; set; }
-        
+        List<Models.Reviews> Reviews;
+
     }
 }

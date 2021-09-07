@@ -9,6 +9,9 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using WebApp.ViewModels;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
+using System.Web;
 
 namespace WebApp.Controllers
 {
@@ -21,7 +24,14 @@ namespace WebApp.Controllers
             _users = users;
             _reviewRepo = reviewRepo;
         }
-     
+
+        //public void LogOut(object sender, EventArgs e)
+        //{
+        //    FormsAuthentication.SignOut();
+        //    Response.Redirect("Login.aspx");
+        //}
+
+
         public ActionResult Login()
         {
             return View();
@@ -44,7 +54,7 @@ namespace WebApp.Controllers
                 var claimsIdentity = new ClaimsIdentity(
                     claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                var authProperties = new AuthenticationProperties
+                var authProperties = new Microsoft.AspNetCore.Authentication.AuthenticationProperties
                 {
 
                     RedirectUri = "/Home/Index"
@@ -56,11 +66,19 @@ namespace WebApp.Controllers
                     new ClaimsPrincipal(claimsIdentity),
                     authProperties);
 
+                TempData["LoggedInUser"] = "Exists";
+
+                if (user.Id == 1) 
+                {
+                    TempData["IsAdmin"] = "Exists";
+                }
                 return View();
 
             }
 
-            return Redirect("/Shared/Error");
+            ModelState.AddModelError("", "Invalid login attempt");
+            return View(userToLogin);
         }
+
     }
 }

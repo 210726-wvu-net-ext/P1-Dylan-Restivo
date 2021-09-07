@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace WebApp.Controllers
             _reviewRepo = reviewRepo;
         }
         // GET: RestaurantsController
-        [Route("Restaurants/Index")]
+        [Authorize]
         public ActionResult Index()
         {
             var restaurants = _reviewRepo.GetAllRestaurants().ToList();
@@ -28,16 +29,16 @@ namespace WebApp.Controllers
 
         // GET: RestaurantsController/Details/5
         [Route("Restaurants/Details/{name}")]
-        [Authorize]
+        
         public ActionResult Details(string name)
         {
-            var restaurants = _reviewRepo.GetAllRestaurants().First(r => r.Name == name);
-            return View(restaurants);
+            var restaurant = _reviewRepo.GetRestaurantObj(name);
+            return View(restaurant);
         }
 
-        // GET: RestaurantsController/Create
+        // GET: RestaurantsController/Create  
         [Route("Restaurants/Create")]
-        [Authorize]
+        
         public ActionResult Create()
         {
             return View();
@@ -59,11 +60,12 @@ namespace WebApp.Controllers
                 _reviewRepo.CreateRestaurant(restaurant);
 
                 TempData["CreatedRestaurant"] = restaurant.Name;
-
+                Log.Debug("Creation successful!");
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
+                Log.Error("Error: Model stat invalid");
                 return View();
             }
         }
@@ -112,7 +114,7 @@ namespace WebApp.Controllers
             }
             catch
             {
-                // ADD ERROR MESSAGE
+                Log.Error("Error in Restaurant/Delete");
                 var restaurant = _reviewRepo.GetAllRestaurants().First(x => x.Name == id);
                 return View(restaurant);
             }

@@ -73,15 +73,6 @@ namespace DL
 
         }
 
-        public List<Models.Reviews> GetReviewsByRestaurantId(int restaurantId)
-        {
-            Console.WriteLine("Searching for reviews...");
-            return _context.Reviews.Where(reviews => reviews.RestaurantId == restaurantId)
-            .Select(
-                review => new Models.Reviews(review.Rating, review.Content, review.RestaurantId)
-            )
-            .ToList();
-        }
 
         public Models.Reviews AddAReview(Models.Reviews review)
         {
@@ -103,6 +94,14 @@ namespace DL
 /// <param name="userName"></param>
 /// <returns></returns>
 
+        public List<Models.Reviews> GetReviewsByRestaurantId(int restaurantId)
+        {
+            return _context.Reviews.Where(reviews => reviews.RestaurantId == restaurantId)
+            .Select(
+                review => new Models.Reviews(review.Rating, review.Content, review.RestaurantId)
+            )
+            .ToList();
+        }
 
 
         public Models.Users GetUserPassword(string userName)

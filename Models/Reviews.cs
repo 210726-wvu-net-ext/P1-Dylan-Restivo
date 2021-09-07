@@ -30,6 +30,7 @@ namespace Models
         public int UserId { get; set; }
         public int RestaurantId { get; set; }
         public int Rating { get; set; }
-        
+        public string RestaurantName { get; set; }
+
     }
 }
