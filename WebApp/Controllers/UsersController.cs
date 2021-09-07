@@ -14,20 +14,11 @@ namespace WebApp.Controllers
     public class UsersController : Controller
     {
         private readonly DL.IReviewRepo _reviewRepo;
-        private IReviewRepo object1;
-        private ILogger<UsersController> object2;
 
-        public UsersController(object @object, DL.IReviewRepo reviewRepo)
+        public UsersController(DL.IReviewRepo reviewRepo)
         {
             _reviewRepo = reviewRepo;
         }
-
-        public UsersController(IReviewRepo object1, ILogger<UsersController> object2)
-        {
-            this.object1 = object1;
-            this.object2 = object2;
-        }
-
         // GET: Users
         [Route("Users/Index")]
         public ActionResult Index()
