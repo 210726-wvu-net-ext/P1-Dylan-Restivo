@@ -9,9 +9,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using WebApp.ViewModels;
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
-using System.Web;
 
 namespace WebApp.Controllers
 {
