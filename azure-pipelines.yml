@@ -43,13 +43,7 @@ steps:
 
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
-- task: DotNetCoreCLI@2
+- task: VisualStudioTestPlatformInstaller@1
   inputs:
-    command: 'publish'
-    publishWebProjects: true
-- task: AzureWebApp@1
-  inputs:
-    azureSubscription: 'afacb393-95b5-4f9c-9b45-b8fc61813cf4'
-    appType: 'webAppLinux'
-    appName: 'DRProject1'
-    package: '$(System.DefaultWorkingDirectory)/Revature/training-code/Revature-Project1/*.sln'
+    packageFeedSelector: 'nugetOrg'
+    versionSelector: 'latestPreRelease'
