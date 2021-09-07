@@ -49,7 +49,7 @@ steps:
     publishWebProjects: true
 - task: AzureWebApp@1
   inputs:
-    azureSubscription: 'https://drproject1.azurewebsites.net'
+    azureSubscription: 'afacb393-95b5-4f9c-9b45-b8fc61813cf4'
     appType: 'webAppLinux'
     appName: 'DRProject1'
     package: '$(System.DefaultWorkingDirectory)/Revature/training-code/Revature-Project1/*.sln'
