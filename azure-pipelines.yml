@@ -1,4 +1,5 @@
 # ASP.NET Core (.NET Framework)
+
 # Build and test ASP.NET Core projects targeting the full .NET Framework.
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
@@ -13,6 +14,7 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+
 
 steps:
 - task: NuGetToolInstaller@1
@@ -32,3 +34,22 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+- task: NuGetCommand@2
+  inputs:
+    command: 'restore'
+    restoreSolution: '**Revature/training-code/Revature-Project1/*.sln'
+    feedsToUse: 'select'
+    
+
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'dotnet build $(buildConfiguration)'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'https://drproject1.azurewebsites.net'
+    appType: 'webAppLinux'
+    appName: 'DRProject1'
+    package: '$(System.DefaultWorkingDirectory)/Revature/training-code/Revature-Project1/*.sln'
