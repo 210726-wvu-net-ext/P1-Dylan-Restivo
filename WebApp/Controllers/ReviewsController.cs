@@ -33,8 +33,11 @@ namespace WebApp.Controllers
         [Route("Reviews/Details/{id}")]
         public ActionResult Details(int id)
         {
-            var reviews = _reviewRepo.GetReviewsByRestaurantId(id);
-            return View(reviews);
+            //var reviews = _reviewRepo.GetReviewsByRestaurantId(ViewBag.RestaurantNow.Id);
+
+            //TempData["ReviewListById"] = reviews;
+
+            return View(/*reviews*/);
         }
 
         // GET: ReviewsController/Create

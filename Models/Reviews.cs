@@ -24,6 +24,15 @@ namespace Models
             this.UserId = userId;
             this.Date = DateTime.Now;
         }
+        public Reviews(int id, int rating, string content, int restaurantId, int userId)
+        {
+            this.Id = id;
+            this.Rating = rating;
+            this.Content = content;
+            this.RestaurantId = restaurantId;
+            this.UserId = userId;
+            this.Date = DateTime.Now;
+        }
         public int Id { get; set; }
         public string Content { get; set; }
         public DateTime Date { get; set; }

@@ -1,5 +1,5 @@
 ﻿@model Models.Restaurant
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
 @{
     ViewData["Title"] = "Details";
 }
@@ -36,14 +36,39 @@
         </dd>
     </dl>
 </div>
-<div class="iframe">
-    <iframe src="https://localhost:44387/Reviews/Index" class="project-tile" id="slider" runat="server"></iframe>
-    <button id="prev" onclick="prev()"><i class="fas fa-arrow-left" class="button"></i></button>
-    <button id="next" onclick="next()"><i class="fas fa-arrow-right" class="button"></i> </button>
-</div>
+
+<p class="ReviesInRestaurant">
+<p>
+    <h4>Reviews</h4>
+    <hr />
+    <ul>
+        @foreach (var review in ViewData["ReviewsList"] as List<Models.Reviews>)
+        {
+            <li>
+                @review.Rating<br />
+
+                @review.Content<br />
+
+                @review.Date.ToShortDateString()<br />
+            </li>
+            <br />
+            <br />
+
+        }
+    </ul>
+
+    @{ var dataTest = ViewData["ReviewsList"] as List<Models.Reviews>; }
+        @if (dataTest.Count == 0)
+        {
+            <a class="nav-link" asp-area="" asp-controller="Reviews" asp-action="Create">No reviews found. Be the first!</a>
+        }
 
 
-<div>
-    
-    <a asp-action="Index">Back to List</a>
-</div>
+</p>
+
+            </div>
+            <div>
+
+                <a asp-action="Index">Back to List</a>
+            </div>
+

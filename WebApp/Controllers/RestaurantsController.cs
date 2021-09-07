@@ -33,8 +33,22 @@ namespace WebApp.Controllers
         public ActionResult Details(string name)
         {
             var restaurant = _reviewRepo.GetRestaurantObj(name);
+
+          
+           List<Models.Reviews> reviews = _reviewRepo.GetReviewsByRestaurantId(restaurant.Id);
+            ViewData["ReviewsList"] = reviews;
+
+            ViewBag.RestaurantNow = new Models.Restaurant()
+            {
+                Name = restaurant.Name,
+                Street = restaurant.Street,
+                ZipCode = restaurant.ZipCode,
+                Cuisine = restaurant.Cuisine,
+                Id = restaurant.Id,
+    };
+
             return View(restaurant);
-        }
+    }
 
         // GET: RestaurantsController/Create  
         [Route("Restaurants/Create")]
