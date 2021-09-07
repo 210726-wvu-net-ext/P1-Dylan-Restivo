@@ -63,7 +63,13 @@ namespace WebApp.Controllers
                     new ClaimsPrincipal(claimsIdentity),
                     authProperties);
 
-                TempData["LoggedInUser"] = "Exists";
+                TempData["LoggedInUser"] = user.UserName;
+                ViewBag.UserNow = new Models.Users()
+                {
+                    Name = user.Name,
+                    UserName = user.UserName,
+                    Id = user.Id
+                };
 
                 if (user.Id == 1) 
                 {
