@@ -184,7 +184,7 @@ namespace DL
             .FirstOrDefault(restaurant => restaurant.Name == name);
             if (foundRestaurant != null)
             {
-                return new Models.Restaurant(foundRestaurant.Name, foundRestaurant.Zipcode, foundRestaurant.Street, foundRestaurant.Cuisine);
+                return new Models.Restaurant(foundRestaurant.Id, foundRestaurant.Name, foundRestaurant.Zipcode, foundRestaurant.Street, foundRestaurant.Cuisine);
             }
             else
             {
@@ -199,7 +199,7 @@ namespace DL
             .FirstOrDefault(review => review.Id == id);
             if (foundReview != null)
             {
-                return new Models.Reviews(foundReview.Rating, foundReview.Content, foundReview.RestaurantId);
+                return new Models.Reviews(foundReview.Id, foundReview.Rating, foundReview.Content, foundReview.RestaurantId, foundReview.UserId);
             }
             else
             {

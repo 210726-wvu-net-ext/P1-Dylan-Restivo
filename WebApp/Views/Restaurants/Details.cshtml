@@ -1,5 +1,5 @@
 ﻿@model Models.Restaurant
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
 @{
     ViewData["Title"] = "Details";
 }
@@ -36,13 +36,39 @@
         </dd>
     </dl>
 </div>
-<div class="ReiewPartial">
 
-</div>
+<p class="ReviesInRestaurant">
+<p>
+    <h4>Reviews</h4>
+    <hr />
+    <ul>
+        @foreach (var review in ViewData["ReviewsList"] as List<Models.Reviews>)
+        {
+            <li>
+                @review.Rating<br />
+
+                @review.Content<br />
+
+                @review.Date.ToShortDateString()<br />
+            </li>
+            <br />
+            <br />
+
+        }
+    </ul>
+
+    @{ var dataTest = ViewData["ReviewsList"] as List<Models.Reviews>; }
+        @if (dataTest.Count == 0)
+        {
+            <a class="nav-link" asp-area="" asp-controller="Reviews" asp-action="Create">No reviews found. Be the first!</a>
+        }
 
 
-<div>
+</p>
 
-    <a asp-action="Index">Back to List</a>
-</div>
+            </div>
+            <div>
+
+                <a asp-action="Index">Back to List</a>
+            </div>
 
