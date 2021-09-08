@@ -48,6 +48,6 @@ steps:
     organization: '210726-wvu-net-ext'
     scannerMode: 'MSBuild'
     projectKey: '620c142669629f08d58a2cedd5be86d531b41731'
-    projectName: 'https://github.com/210726-wvu-net-ext/P1-Dylan-Restivo'
+    projectName: '210726-wvu-net-ext/P1-Dylan-Restivo'
     
 - task: SonarCloudAnalyze@1
