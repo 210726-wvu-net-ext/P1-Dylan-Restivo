@@ -15,7 +15,7 @@ pr:
     - P1-Dylan-Restivo
 
 variables:
-  slnPath: -P1-Dylan-Restivo
+  slnPath: P1-Dylan-Restivo
 
 stages:
 - stage: build
@@ -43,9 +43,9 @@ stages:
       displayName: sonar prepare
       inputs:
         SonarCloud: 'Dylan S Restivo'
-        organization: 'Dylan S Restivo'
+        organization: '210726-wvu-net-ext'
         scannerMode: 'MSBuild'
-        projectKey: 'MMooKow_Revature-Project1'
+        projectKey: '210726-wvu-net-ext_P1-Dylan-Restivo'
         extraProperties: |
           sonar.exclusions=**/lib/**/*
           sonar.cs.opencover.reportsPaths=$(Agent.TempDirectory)/*/coverage.opencover.xml
