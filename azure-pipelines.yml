@@ -42,8 +42,8 @@ stages:
     - task: SonarCloudPrepare@1
       displayName: sonar prepare
       inputs:
-        SonarCloud: 'sonarcloud-escalonn'
-        organization: '210726-wvu-net-ext'
+        SonarCloud: 'Dylan S Restivo'
+        organization: 'Dylan S Restivo'
         scannerMode: 'MSBuild'
         projectKey: 'MMooKow_Revature-Project1'
         extraProperties: |
