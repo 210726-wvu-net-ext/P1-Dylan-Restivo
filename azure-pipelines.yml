@@ -41,3 +41,4 @@ steps:
   inputs:
     packageFeedSelector: 'nugetOrg'
     versionSelector: 'latestPreRelease'
+- task: SonarCloudAnalyze@1
