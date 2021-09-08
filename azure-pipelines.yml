@@ -85,4 +85,3 @@ stages:
       # better integration/reporting with azure pipelines?
         # you can report test results to azure pipelines
         # so it can show them in its GUI
-
