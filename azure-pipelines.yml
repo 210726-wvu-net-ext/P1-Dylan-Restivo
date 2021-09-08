@@ -51,7 +51,7 @@ stages:
           sonar.cs.opencover.reportsPaths=$(Agent.TempDirectory)/*/coverage.opencover.xml
     - script: dotnet build --configuration Release
       displayName: dotnet build
-      workingDirectory: $(slnPath)
+      workingDirectory: 
 #xPlat because MS code coverage tool not good. included in xunit. Make sure to check output file type opencover in this case is all thats needed
     - script: dotnet test
         --configuration Release
@@ -60,7 +60,7 @@ stages:
         --
         DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
       displayName: dotnet test
-      workingDirectory: $(slnPath)
+      workingDirectory: 
 
     - task: SonarCloudAnalyze@1
       displayName: sonar analyze
