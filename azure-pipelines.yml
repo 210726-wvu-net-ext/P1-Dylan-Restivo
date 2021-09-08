@@ -15,7 +15,7 @@ pr:
     - P1-Dylan-Restivo
 
 variables:
-  slnPath: - P1-Dylan-Restivo
+  slnPath: -P1-Dylan-Restivo
 
 stages:
 - stage: build
@@ -85,3 +85,4 @@ stages:
       # better integration/reporting with azure pipelines?
         # you can report test results to azure pipelines
         # so it can show them in its GUI
+
