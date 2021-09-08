@@ -15,7 +15,7 @@ pr:
     - P1-Dylan-Restivo
 
 variables:
-  slnPath: C:/Revature/training-code/Revature-Project1
+  slnPath: P1-Dylan-Restivo/blob/main/.github/workflows
 
 stages:
 - stage: build
