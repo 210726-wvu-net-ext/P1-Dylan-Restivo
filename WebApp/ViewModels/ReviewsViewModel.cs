@@ -11,7 +11,7 @@ namespace WebApp.ViewModels
         public string Street { get; set; }
 
         [Display(Name = "Rating")]
-        [Required, RegularExpression("[1-5].*")]
+        [Required, RegularExpression("[1-5]")]
         public int Rating { get; set; }
 
         [Display(Name = "Review")]
@@ -28,5 +28,6 @@ namespace WebApp.ViewModels
         public int RestaurantId { get; set; }
 
         public int UserId { get; set; }
+        public int Id { get; set; }
     }
 }

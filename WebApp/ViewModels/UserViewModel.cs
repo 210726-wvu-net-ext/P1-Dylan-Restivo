@@ -7,7 +7,7 @@ namespace WebApp.ViewModels
     public class UserViewModel
     {
         [Display(Name = "Name")]
-        [Required, RegularExpression("[A-Z].*")]
+        [Required, RegularExpression("^[a-zA-Z]*$")]
         public string Name { get; set; }
 
         [Display(Name = "Username")]
@@ -16,6 +16,7 @@ namespace WebApp.ViewModels
 
         [Required]
         public string Password { get; set; }
+        public int Id { get; set; }
 
     }
 }

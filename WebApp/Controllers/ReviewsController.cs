@@ -1,4 +1,5 @@
 ﻿using DL;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -21,7 +22,8 @@ namespace WebApp.Controllers
         }
 
 
-        // GET: ReviewsController
+        // GET: Reviews
+  
         [Route("Reviews/Index")]
         public ActionResult Index()
         {
@@ -29,7 +31,7 @@ namespace WebApp.Controllers
             return View(reviews);
         }
 
-        // GET: ReviewsController/Details/5
+        // GET: Reviews/Details/5
         [Route("Reviews/Details/{id}")]
         public ActionResult Details(int id)
         {
@@ -40,15 +42,17 @@ namespace WebApp.Controllers
             return View(/*reviews*/);
         }
 
-        // GET: ReviewsController/Create
-        [Route("Reviews/Create/")]
+        // GET: Reviews/Create
+        [Authorize]
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
         // POST: Users/Create
-        [HttpPost("Reviews/Create")]
+        [Authorize]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ReviewsViewModel viewModel)
         {
@@ -60,11 +64,11 @@ namespace WebApp.Controllers
                 }
                 int userId = ViewBag.UserNow.Id;
                 int restaurantId = ViewBag.RestaurantNow.Id;
-                var review = new Models.Reviews(viewModel.Rating, viewModel.Content, restaurantId, userId);
+                var review = new Models.Reviews(viewModel.Id, viewModel.Rating, viewModel.Content, restaurantId, userId);
                 _reviewRepo.CreateReview(review);
 
                 TempData["CreatedReview"] = review.Id;
-                Log.Debug("Creation successful!");
+                Log.Debug("Review creation successful!");
                 return RedirectToAction("Restaurants/Details/{restaurantId}");
             }
             catch
@@ -75,7 +79,7 @@ namespace WebApp.Controllers
             }
         }
 
-        // GET: ReviewsController/Edit/5
+        // GET: Reviews/Edit/5
         [Route("Reviews/Edit/{id}")]
         public ActionResult Edit(int id)
         {

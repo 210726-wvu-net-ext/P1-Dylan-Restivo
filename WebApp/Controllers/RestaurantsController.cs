@@ -21,15 +21,14 @@ namespace WebApp.Controllers
             _reviewRepo = reviewRepo;
 
         }
-        // GET: RestaurantsController
-        [Authorize]
+        // GET: Restaurant
         public ActionResult Index()
         {
             var restaurants = _reviewRepo.GetAllRestaurants().ToList();
             return View(restaurants);
         }
 
-        // GET: RestaurantsController/Details/5
+        // GET: Restaurants/Details/5
         [Route("Restaurants/Details/{name}")]
         
         public ActionResult Details(string name)
@@ -54,14 +53,14 @@ namespace WebApp.Controllers
     }
 
         // GET: Restaurants/Create
-        [Route("Restaurants/Create")]
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
         // POST: Restaurants/Create
-        [HttpPost("Restaurants/Create")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(RestaurantViewModel viewModel)
         {
@@ -76,7 +75,7 @@ namespace WebApp.Controllers
                 _reviewRepo.CreateRestaurant(restaurant);
 
                 TempData["CreatedRestaurant"] = restaurant.Name;
-                Log.Debug("Creation successful!");
+                Log.Debug("Restaurant creation successful!");
                 return RedirectToAction(nameof(Index));
             }
             catch

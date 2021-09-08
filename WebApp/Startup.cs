@@ -24,7 +24,7 @@ namespace WebApp
             Configuration = configuration;
             Log.Logger = new LoggerConfiguration()
                     .MinimumLevel.Debug()
-                    .WriteTo.File("../logs/petlog.txt, rollingInterval:RollingInterval.Data")
+                    .WriteTo.File("../logs/reviewlog.txt, rollingInterval:RollingInterval.Data")
                     .CreateLogger();
             Log.Information("UI beginning");
         }
