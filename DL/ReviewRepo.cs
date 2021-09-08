@@ -48,18 +48,6 @@ namespace DL
             }
             return new Models.Restaurant();
         }
-        public Models.Users GetUserById(int id)
-        {
-            Entities.User foundUser = _context.Users
-            .FirstOrDefault(user => user.Id == id);
-            Console.WriteLine($"Id {id}");
-            try {
-                return new Models.Users(foundUser.Name, foundUser.UserName, foundUser.Password, foundUser.Id);
-            } catch (NullReferenceException)
-            {
-                return null;
-            }
-        }
 
         public Models.Restaurant RestaurantLookupZip(string zipcode)
         {
@@ -88,12 +76,26 @@ namespace DL
             return review;
         }
 
-/// <summary>
-/// Methods used for P1. Other needs to be removed
-/// </summary>
-/// <param name="userName"></param>
-/// <returns></returns>
+        /// <summary>
+        /// Methods used for P1. Other needs to be removed
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
 
+        public Models.Users GetUserById(int id)
+        {
+            Entities.User foundUser = _context.Users
+            .FirstOrDefault(user => user.Id == id);
+            Console.WriteLine($"Id {id}");
+            try
+            {
+                return new Models.Users(foundUser.Name, foundUser.UserName, foundUser.Password, foundUser.Id);
+            }
+            catch (NullReferenceException)
+            {
+                return null;
+            }
+        }
         public List<Models.Reviews> GetReviewsByRestaurantId(int restaurantId)
         {
             return _context.Reviews.Where(reviews => reviews.RestaurantId == restaurantId)

@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models
 {
@@ -36,10 +37,13 @@ namespace Models
         public int Id { get; set; }
         public string Content { get; set; }
         public DateTime Date { get; set; }
+        [ForeignKey("Id")]
         public int UserId { get; set; }
+        [ForeignKey("Id")]
         public int RestaurantId { get; set; }
         public int Rating { get; set; }
         public string RestaurantName { get; set; }
+        public string userName { get; set; }
 
     }
 }

@@ -1,4 +1,4 @@
-﻿@model Models.Users
+﻿@model UserViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -35,7 +35,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">To Login</a>
 </div>
 
 @section Scripts {

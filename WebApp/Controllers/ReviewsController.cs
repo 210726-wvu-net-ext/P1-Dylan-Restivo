@@ -41,7 +41,7 @@ namespace WebApp.Controllers
         }
 
         // GET: ReviewsController/Create
-        [Route("Reviews/Create")]
+        [Route("Reviews/Create/")]
         public ActionResult Create()
         {
             return View();
@@ -50,7 +50,7 @@ namespace WebApp.Controllers
         // POST: Users/Create
         [HttpPost("Reviews/Create")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(/*string street,*/ ReviewsViewModel viewModel)
+        public ActionResult Create(ReviewsViewModel viewModel)
         {
             try
             {
@@ -58,21 +58,19 @@ namespace WebApp.Controllers
                 {
                     return View(viewModel);
                 }
-                //try
-                //{
-                //    _reviewRepo.GetRestaurantObj(street);
-                //}
-
-                var review = new Models.Reviews(viewModel.Rating, viewModel.Content);
+                int userId = ViewBag.UserNow.Id;
+                int restaurantId = ViewBag.RestaurantNow.Id;
+                var review = new Models.Reviews(viewModel.Rating, viewModel.Content, restaurantId, userId);
                 _reviewRepo.CreateReview(review);
 
                 TempData["CreatedReview"] = review.Id;
                 Log.Debug("Creation successful!");
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Restaurants/Details/{restaurantId}");
             }
             catch
             {
-                Log.Error("Error: Model stat invalid");
+                var error = new Exception();
+                Log.Error(error, "An error has occured creating a review");
                 return View();
             }
         }
@@ -98,12 +96,13 @@ namespace WebApp.Controllers
             }
             catch
             {
-                Log.Error("Error in Review/Edit");
+                var error = new Exception();
+                Log.Error(error, "An error has occured during Review edit");
                 return View();
             }
         }
 
-        // GET: ReviewsController/Delete/5
+        // GET: Reviews/Delete/5
         [HttpPost("Reviews/Delete/{id}")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
@@ -115,7 +114,8 @@ namespace WebApp.Controllers
             }
             catch
             {
-                Log.Error("Error in Review/Delete");
+                var error = new Exception();
+                Log.Error(error, "An error has occured during Review delete");
                 var review = _reviewRepo.GetAllReviews().First(x => x.Id == id);
                 return View(review);
             }
