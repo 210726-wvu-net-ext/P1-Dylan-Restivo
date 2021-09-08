@@ -15,7 +15,7 @@ pr:
     - P1-Dylan-Restivo
 
 variables:
-  slnPath: P1-Dylan-Restivo/blob/main/.github/workflows
+  slnPath: P1-Dylan-Restivo
 
 stages:
 - stage: build
