@@ -35,6 +35,14 @@ steps:
     feedsToUse: 'select'
     
 
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SONAR_TOKEN'
+    organization: '210726-wvu-net-ext'
+    scannerMode: 'MSBuild'
+    projectKey: 'MMooKow_Revature-Project1'
+    extraProperties: 'sonar.exclusions=**/lib/**/*'
+
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 - task: VisualStudioTestPlatformInstaller@1
@@ -42,12 +50,6 @@ steps:
     packageFeedSelector: 'nugetOrg'
     versionSelector: 'latestPreRelease'
 
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'SONAR_TOKEN'
-    organization: '210726-wvu-net-ext'
-    scannerMode: 'MSBuild'
-    projectKey: '620c142669629f08d58a2cedd5be86d531b41731'
-    projectName: '210726-wvu-net-ext/P1-Dylan-Restivo'
+- task: SonarCloudAnalyze@1
     
 
