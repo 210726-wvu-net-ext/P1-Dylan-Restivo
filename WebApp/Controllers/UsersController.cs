@@ -36,14 +36,14 @@ namespace WebApp.Controllers
         }
 
         // GET: Users/Create
-        [Route("Users/Create")]
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
         // POST: Users/Create
-        [HttpPost("Users/Create")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(UserViewModel viewModel)
         {
@@ -51,14 +51,14 @@ namespace WebApp.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return View(viewModel);
+                    return View("Home/Index");
                 }
 
-                var user = new Models.Users(viewModel.Name, viewModel.UserName, viewModel.Password);
+                var user = new Models.Users(viewModel.Name, viewModel.UserName, viewModel.Password, viewModel.Id);
                 _reviewRepo.CreateUser(user);
 
                 TempData["CreatedUser"] = user.Name;
-                Log.Debug("Creation successful!");
+                Log.Debug("User creation successful!" + user.Name);
                 return RedirectToAction(nameof(Index));
             }
             catch

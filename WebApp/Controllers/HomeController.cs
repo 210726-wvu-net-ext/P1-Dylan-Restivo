@@ -37,42 +37,15 @@ namespace WebApp.Controllers
             return View();
         }
 
-        //public IActionResult Login(UserViewModel activeUser)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View("Login",activeUser);
-        //    }
-
-        //    if (_reviewRepo.LoginWebApp(activeUser.username, activeUser.Password) is true)
-        //    {
-        //        ViewBag.Username = activeUser.username;
-        //        TempData["user"] = activeUser.username;
-        //        TempData.Peek("user");
-        //        return Redirect("~/Home/Index");
-        //    }
-        //    else
-        //    {
-        //        return View("Unable to validate credentials");
-        //    }
-        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Signup(IFormCollection collection)
         {
-            // ASP.NET "model binding"
-            // - fill in action method parameters with data from the request
-            //   (URL path, URL query string, form data, etc.)
-            //   based on compatible data type and name.
 
-            // validate all action method parameters as user input
             if (!ModelState.IsValid)
             {
-                // if ModelState has errors, that can influence view rendering
-                // (the validation tag helpers look at it)
                 return View(collection);
-                //return View("ErrorMessage", model: "invalid");
             }
 
             try

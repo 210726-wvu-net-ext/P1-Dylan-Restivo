@@ -260,7 +260,7 @@ namespace DL
         ///Users
         public void CreateUser(Models.Users user)
         {
-            _context.Users.Add( new Entities.User { Name = user.Name, UserName = user.UserName,Password = user.Password });
+            _context.Users.Add( new Entities.User { Id = user.Id, Name = user.Name, UserName = user.UserName,Password = user.Password });
             _context.SaveChanges();
         }
 
@@ -286,7 +286,7 @@ namespace DL
         /// Reviews
         public void CreateReview(Models.Reviews review) 
         { 
-            _context.Reviews.Add(new Entities.Review{ Rating = review.Rating, Content = review.Content, RestaurantId = review.RestaurantId });
+            _context.Reviews.Add(new Entities.Review{ Id = review.Id, Rating = review.Rating, Content = review.Content, RestaurantId = review.RestaurantId });
             _context.SaveChanges();
         }
         /// <summary>
