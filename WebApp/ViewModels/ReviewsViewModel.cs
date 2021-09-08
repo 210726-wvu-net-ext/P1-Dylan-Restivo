@@ -18,8 +18,15 @@ namespace WebApp.ViewModels
         [Required]
         public string Content { get; set; }
 
+        [Display(Name = "UserName")]
+        [Required]
+        public string UserName { get; set; }
+
         [Display(Name = "Date")]
         [Required]
         public DateTime Date { get; set; }
+        public int RestaurantId { get; set; }
+
+        public int UserId { get; set; }
     }
 }

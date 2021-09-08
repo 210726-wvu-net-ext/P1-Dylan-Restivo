@@ -63,7 +63,8 @@ namespace WebApp.Controllers
             }
             catch
             {
-                Log.Error("Error: Model stat invalid");
+                var error = new Exception();
+                Log.Error(error, "An error has occured during User create");
                 return View();
             }
         }
@@ -88,8 +89,9 @@ namespace WebApp.Controllers
             }
             catch
             {
-                Log.Error("Error in User/Edit");
-                return View();
+                var error = new Exception();
+                Log.Error(error, "An error has occuredduring User edit");
+                return View(user);
             }
         }
 
@@ -113,7 +115,8 @@ namespace WebApp.Controllers
             }
             catch
             {
-                Log.Error("Error in User/Delete");
+                var error = new Exception();
+                Log.Error(error, "An error has occured during User delete");
                 var user = _reviewRepo.GetAllUsers().First(x => x.Name == id);
                 return View(user);
             }

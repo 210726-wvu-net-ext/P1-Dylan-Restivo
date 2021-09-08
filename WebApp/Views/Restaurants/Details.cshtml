@@ -6,6 +6,8 @@
 
 <h1>Details</h1>
 
+<a class="nav-link" asp-area="" asp-controller="Reviews" asp-action="Create">Leave a review</a>
+
 <div>
     <h4>Restaurant</h4>
     <hr />
@@ -37,7 +39,7 @@
     </dl>
 </div>
 
-<p class="ReviesInRestaurant">
+<p class="ReviewsInRestaurant">
 <p>
     <h4>Reviews</h4>
     <hr />
@@ -50,6 +52,7 @@
                 @review.Content<br />
 
                 @review.Date.ToShortDateString()<br />
+
             </li>
             <br />
             <br />
@@ -58,17 +61,14 @@
     </ul>
 
     @{ var dataTest = ViewData["ReviewsList"] as List<Models.Reviews>; }
-        @if (dataTest.Count == 0)
-        {
-            <a class="nav-link" asp-area="" asp-controller="Reviews" asp-action="Create">No reviews found. Be the first!</a>
-        }
-
+    @if (dataTest.Count == 0)
+    {
+        <a class="nav-link" asp-area="" asp-controller="Reviews" asp-action="Create">No reviews found. Be the first!</a>
+    }
 
 </p>
+           
+<div>
 
-            </div>
-            <div>
-
-                <a asp-action="Index">Back to List</a>
-            </div>
-
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -25,7 +25,7 @@ namespace DL
 
         string GetAdminPassword();
 
-        Users GetUserById(int id);
+        Models.Users GetUserById(int id);
 
         bool GetUserName(string userName);
 
