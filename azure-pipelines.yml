@@ -31,7 +31,7 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: 'restore'
-    restoreSolution: '**Revature/training-code/Revature-Project1/*.sln'
+    restoreSolution: 'Revature-Project1/*.sln'
     feedsToUse: 'select'
     
 
