@@ -157,49 +157,5 @@ namespace UI_UnitTests
 
     }
 
-    public class GetAllTests
-    {
-        private IReviewRepo _reviewRepo;
-        public void GetAll_Tests(IReviewRepo reviewRepo)
-        {
-            _reviewRepo = reviewRepo;
-        }
-
-        [Fact]
-
-        public void GetUser()
-        {
-            List<Models.Users> expectedType = new List<Models.Users> ();      
-
-            var userType = _reviewRepo.GetAllUsers();
-
-            Assert.Equal(expectedType, userType);
-
-        }
-
-        [Fact]
-        public void GetReview()
-        {
-            int testInt = 4;
-
-            var review = _reviewRepo.GetReviewObj(testInt);
-            Console.WriteLine(testInt);
-
-            Assert.True(review.Id == testInt);
-
-        }
-
-        [Fact]
-        public void GetRestaurant()
-        {
-            string testId = "Frillies";
-
-            var restaurantId = _reviewRepo.GetUserObj(testId);
-            Console.WriteLine(testId);
-
-            Assert.True(restaurantId.Name == testId);
-
-        }
-    }
  }
 
