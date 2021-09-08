@@ -1,55 +1,87 @@
 trigger:
-- main
-
-pool:
-  vmImage: 'windows-latest'
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - P1-Dylan-Restivo
+   
+pr:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - P1-Dylan-Restivo
 
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+  slnPath: - P1-Dylan-Restivo
 
+stages:
+- stage: build
+  jobs:
+  - job: build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    # not always a good idea to take for granted
+    # the version of build dependencies installed on
+    # microsoft's build agents
+    - task: UseDotNet@2
+      displayName: dotnet sdk 5
+      inputs:
+        packageType: 'sdk'
+        version: '5.x'
+     # added because of an issue that might come up. **include***
+    - task: UseDotNet@2
+      displayName: dotnet runtime 3.1
+      inputs:
+        packageType: 'runtime'
+        version: '3.1.x'
+# Get this info from sonar cloud  https://sonarcloud.io/project/configuration?id=MMooKow_Revature-Project1
+    - task: SonarCloudPrepare@1
+      displayName: sonar prepare
+      inputs:
+        SonarCloud: 'sonarcloud-escalonn'
+        organization: '210726-wvu-net-ext'
+        scannerMode: 'MSBuild'
+        projectKey: 'MMooKow_Revature-Project1'
+        extraProperties: |
+          sonar.exclusions=**/lib/**/*
+          sonar.cs.opencover.reportsPaths=$(Agent.TempDirectory)/*/coverage.opencover.xml
+    - script: dotnet build --configuration Release
+      displayName: dotnet build
+      workingDirectory: $(slnPath)
+#xPlat because MS code coverage tool not good. included in xunit. Make sure to check output file type opencover in this case is all thats needed
+    - script: dotnet test
+        --configuration Release
+        --collect:"XPlat Code Coverage"
+        --results-directory $(Agent.TempDirectory)
+        --
+        DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+      displayName: dotnet test
+      workingDirectory: $(slnPath)
 
-steps:
-- task: NuGetToolInstaller@1
+    - task: SonarCloudAnalyze@1
+      displayName: sonar analyze
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
+    - task: SonarCloudPublish@1
+      displayName: sonar publish gate
+      inputs:
+        pollingTimeoutSec: '300'
+# Get output info from MS default output location preferences. 
+    - script: dotnet publish
+        --configuration Release
+        --output $(Build.StagingDirectory)
+      displayName: dotnet publish
+      workingDirectory: $(slnPath)
+# publishing artifact
+    - publish: $(Build.StagingDirectory)
+      displayName: publish app artifact
+      artifact: app
 
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-- task: NuGetCommand@2
-  inputs:
-    command: 'restore'
-    restoreSolution: 'Revature-Project1/*.sln'
-    feedsToUse: 'select'
-    
-
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'SONAR_TOKEN'
-    organization: '210726-wvu-net-ext'
-    scannerMode: 'MSBuild'
-    projectKey: 'MMooKow_Revature-Project1'
-    extraProperties: 'sonar.exclusions=**/lib/**/*'
-
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
-- task: VisualStudioTestPlatformInstaller@1
-  inputs:
-    packageFeedSelector: 'nugetOrg'
-    versionSelector: 'latestPreRelease'
-
-- task: SonarCloudAnalyze@1
-    
-
+      # next steps...
+      # deploying to azure app service
+      # better integration/reporting with azure pipelines?
+        # you can report test results to azure pipelines
+        # so it can show them in its GUI
