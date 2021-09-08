@@ -15,7 +15,7 @@ pr:
     - P1-Dylan-Restivo
 
 variables:
-  slnPath: training-code/P1-Dylan-Restivo
+  slnPath: 210726-wvu-net-ext/P1-Dylan-Restivo
 
 stages:
 - stage: build
@@ -51,6 +51,7 @@ stages:
           sonar.cs.opencover.reportsPaths=$(Agent.TempDirectory)/*/coverage.opencover.xml
     - script: dotnet build --configuration Release
       displayName: dotnet build
+      workingDirectory: $(slnPath)
 #xPlat because MS code coverage tool not good. included in xunit. Make sure to check output file type opencover in this case is all thats needed
     - script: dotnet test
         --configuration Release
