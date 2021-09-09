@@ -74,7 +74,7 @@ stages:
         --configuration Release
         --output $(Build.StagingDirectory)
       displayName: dotnet publish
-      workingDirectory: $(slnPath)
+      workingDirectory:
 # publishing artifact
     - publish: $(Build.StagingDirectory)
       displayName: publish app artifact
