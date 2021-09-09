@@ -86,29 +86,6 @@ namespace WebApp.Controllers
             }
         }
 
-        //[Route("Restaurants/Edit/{id}")]
-        //public ActionResult Edit(string id)
-        //{
-        //    var restaurant = _reviewRepo.GetRestaurantObj(id);
-        //    return View(restaurant);
-        //}
-
-        //// GET: Restaurants/Edit/5
-        //[HttpPost("Restaurants/Edit/{id}")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(string id, Models.Restaurant restaurant, IFormCollection collection)
-        //{
-        //    try
-        //    {
-
-        //        _reviewRepo.UpdateRestaurant(id, restaurant);
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
 
         // GET: Restaurants/Delete/5
         [Route("Restaurants/Delete/{id}")]
