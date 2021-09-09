@@ -8,7 +8,7 @@ namespace DL
 {
     public class ReviewRepo : IReviewRepo
     {
-        private MyTestContext _context;
+        private readonly MyTestContext _context;
         public ReviewRepo(MyTestContext context)
         {
             _context = context;
@@ -147,12 +147,9 @@ namespace DL
             {
                 Entities.User foundUser = _context.Users
                 .FirstOrDefault(users => users.Name == username);
-                if (foundUser != null)
+                if (foundUser != null && foundUser.Password == password)
                 {
-                    if (foundUser.Password == password)
-                    {
                         return true;
-                    }
                 }
 
             }//end try

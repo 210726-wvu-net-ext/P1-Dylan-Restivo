@@ -30,7 +30,6 @@ namespace Models
         public string Street { get; set; }
         public string Cuisine { get; set; }
 
-        List<Models.Reviews> reviewList { get; set; }
 
     }
 }
