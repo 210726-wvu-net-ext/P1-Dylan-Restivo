@@ -37,7 +37,7 @@ namespace WebApp
             services.AddScoped<IReviewRepo, ReviewRepo>();
 
             services.AddDbContext<MyTestContext>(options => {
-                options.UseSqlServer(Configuration.GetConnectionString("ReviewsDb"));
+                options.UseSqlServer(Configuration.GetConnectionString("MyTest"));
                 options.LogTo(Console.WriteLine);
 
                 });

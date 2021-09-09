@@ -12,7 +12,8 @@ using Moq;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace UI_UnitTests
+
+namespace RestaurantTests
 {
     public class RatingTest_LT
     {
@@ -53,7 +54,8 @@ namespace UI_UnitTests
     public class AdminPass
     {
         [Fact]
-        public void AdminPass_ET() {
+        public void AdminPass_ET()
+        {
             //Given
             bool result = false;
             string adminPass = "Admin";
@@ -61,7 +63,8 @@ namespace UI_UnitTests
 
 
             //When
-            if (truePass == adminPass) {
+            if (truePass == adminPass)
+            {
                 result = true;
             }
             //Then
@@ -73,7 +76,8 @@ namespace UI_UnitTests
     public class AverageTest_Small
     {
         [Fact]
-        public void AverageSmall() {
+        public void AverageSmall()
+        {
             //Given
             bool result = false;
             double[] numbers = { 1, 2, 3, 4, 5 };
@@ -87,7 +91,8 @@ namespace UI_UnitTests
             double actual = total / count;
             double expected = 3;
             //When
-            if (actual == expected) {
+            if (actual == expected)
+            {
                 result = true;
             }
             //Then
@@ -156,6 +161,4 @@ namespace UI_UnitTests
         }
 
     }
-
- }
-
+}
