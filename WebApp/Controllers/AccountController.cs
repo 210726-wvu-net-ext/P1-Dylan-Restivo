@@ -38,6 +38,8 @@ namespace WebApp.Controllers
         {
             var user = _reviewRepo.GetAllUsers().Find(c => c.UserName == userToLogin.UserName && c.Password == userToLogin.Password);
 
+            Models.Users loggedInUser = _reviewRepo.GetUserById(user.Id);
+
             if (!(user is null))
             {
                 var claims = new List<Claim>
@@ -62,12 +64,19 @@ namespace WebApp.Controllers
                     new ClaimsPrincipal(claimsIdentity),
                     authProperties);
 
-                TempData["LoggedInUser"] = user.UserName;
+                TempData["LoggedInUser"] = "Exitsts";
+
+                ViewData["UserName"] = user.Name;
+                ViewData["UserUsername"] = user.UserName;
+                ViewData["UserPassword"] = user.Password;
+                ViewData["UserId"] = user.Id;
+
                 ViewBag.UserNow = new Models.Users()
                 {
-                    Name = user.Name,
-                    UserName = user.UserName,
-                    Id = user.Id
+                    Name = (string)ViewData["UserName"],
+                    UserName = (string)ViewData["UserUsername"],
+                    Password = (string)ViewData["UserPassword"],
+                    Id = (int)ViewData["UserId"]
                 };
 
                 if (user.Id == 1) 

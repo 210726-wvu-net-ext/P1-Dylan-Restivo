@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Models;
 using Serilog;
 using System;
@@ -14,10 +15,12 @@ namespace WebApp.Controllers
 {
     public class ReviewsController : Controller
     {
+        private readonly ILogger<ReviewsController> _logger;
         private readonly IReviewRepo _reviewRepo;
 
-        public ReviewsController(IReviewRepo reviewRepo)
+        public ReviewsController(ILogger<ReviewsController> logger, IReviewRepo reviewRepo)
         {
+            _logger = logger;
             _reviewRepo = reviewRepo;
         }
 
@@ -47,28 +50,31 @@ namespace WebApp.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+
             return View();
         }
 
         // POST: Users/Create
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ReviewsViewModel viewModel)
+        public ActionResult Create(ReviewsViewModel ViewModel)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    return View(viewModel);
+                    return View(ViewModel);
                 }
+
                 int userId = ViewBag.UserNow.Id;
+
                 int restaurantId = ViewBag.RestaurantNow.Id;
-                var review = new Models.Reviews(viewModel.Id, viewModel.Rating, viewModel.Content, restaurantId, userId);
+
+                var review = new Models.Reviews(ViewModel.Rating, ViewModel.Content, restaurantId, userId);
                 _reviewRepo.CreateReview(review);
 
                 TempData["CreatedReview"] = review.Id;
-                Log.Debug("Review creation successful!");
+                Log.Debug("Review creation successful!" + TempData["CreatedReview"]);
                 return RedirectToAction("Restaurants/Details/{restaurantId}");
             }
             catch

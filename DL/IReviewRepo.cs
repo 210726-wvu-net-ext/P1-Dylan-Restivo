@@ -13,7 +13,6 @@ namespace DL
 
         List<Reviews> GetAvgRatings(int id);
 
-
         Restaurant GetRestaurantById(int id);
 
         Restaurant RestaurantLookupZip(string zipcode);
@@ -49,6 +48,7 @@ namespace DL
         void UpdateReview(int id, Reviews review);
 
         void DeleteReview(int id);
+
 
         //void UpdateRestaurant(string id, Restaurant restaurant);
     }

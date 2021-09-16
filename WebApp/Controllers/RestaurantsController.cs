@@ -40,13 +40,19 @@ namespace WebApp.Controllers
 
             ViewData["ReviewsList"] = reviews;
 
+            ViewData["RestaurantName"] = restaurant.Name;
+            ViewData["RestaurantStreet"] = restaurant.Street;
+            ViewData["RestaurantZipcode"] = restaurant.ZipCode;
+            ViewData["RestaurantCuisine"] = restaurant.Cuisine;
+            ViewData["RestaurantId"] = restaurant.Id;
+
             ViewBag.RestaurantNow = new Models.Restaurant()
             {
-                Name = restaurant.Name,
-                Street = restaurant.Street,
-                ZipCode = restaurant.ZipCode,
-                Cuisine = restaurant.Cuisine,
-                Id = restaurant.Id,
+                Name = (string)ViewData["RestaurantName"],
+                Street = (string)ViewData["RestaurantStreet"],
+                ZipCode = (string)ViewData["RestaurantZipcode"],
+                Cuisine = (string)ViewData["RestaurantCuisine"],
+                Id = (int)ViewData["RestaurantId"],
             };
 
             return View(restaurant);

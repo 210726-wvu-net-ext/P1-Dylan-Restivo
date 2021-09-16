@@ -2,7 +2,9 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using DL.Entities;
-
+using System.Data.Entity.Validation;
+using System.Diagnostics;
+using System.Data.Entity.Infrastructure;
 
 namespace DL
 {
@@ -68,7 +70,8 @@ namespace DL
                 new Entities.Review {
                     Rating = review.Rating,
                     Content = review.Content,
-                    RestaurantId = review.RestaurantId
+                    RestaurantId = review.RestaurantId,
+                    UserId = review.UserId
                 }
             );
             _context.SaveChanges();
@@ -81,6 +84,8 @@ namespace DL
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
+
+  
 
         public Models.Users GetUserById(int id)
         {
@@ -257,7 +262,7 @@ namespace DL
         ///Users
         public void CreateUser(Models.Users user)
         {
-            _context.Users.Add( new Entities.User { Id = user.Id, Name = user.Name, UserName = user.UserName,Password = user.Password });
+            _context.Users.Add( new Entities.User {Name = user.Name, UserName = user.UserName,Password = user.Password });
             _context.SaveChanges();
         }
 
@@ -283,7 +288,7 @@ namespace DL
         /// Reviews
         public void CreateReview(Models.Reviews review) 
         { 
-            _context.Reviews.Add(new Entities.Review{ Id = review.Id, Rating = review.Rating, Content = review.Content, RestaurantId = review.RestaurantId });
+            _context.Reviews.Add(new Entities.Review{Rating = review.Rating, Content = review.Content, RestaurantId = review.RestaurantId, UserId = review.UserId });
             _context.SaveChanges();
         }
         /// <summary>
