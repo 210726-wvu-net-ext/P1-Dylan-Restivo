@@ -18,7 +18,8 @@
 	- Allow users to see restaurants and their assosciated reviews
 	- Allow users to add reviews
 ## Usage
-	- Upon starting up the app you are greeted by the main page where you can create an acccount, log in, or lookup restaurants. A user is not required to log in until they try to leave a review.
+	- Upon starting up the app you are greeted by the main page where you can create an acccount, log in, or lookup restaurants.
+	- A user is not required to log in until they try to leave a review.
 	- When clicking on the "Create Account" link the user is asked for a name, username, and password.
 	- After created an account the user is returned to the main menu where they can click the "Log In" link.
 	- The "Restaurant Lookup" link takes the user to a page with all the restaruants and links to see details about each.
