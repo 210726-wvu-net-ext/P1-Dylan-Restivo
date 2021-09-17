@@ -18,6 +18,11 @@
 	- Allow users to see restaurants and their assosciated reviews
 	- Allow users to add reviews
 ## Usage
-	- Upon starting up the app you are greeted by the main page where you can create an acccount, log in, or lookup restaurants. A user isnt required to login until they try to leave a review.
-	![EateryEvals main page](https://dsm01pap001files.storage.live.com/y4mnuXnaVhYwqScsurB9X5COOPKGBHsuuiD0qLR8wG3xvuP5l9CIc9YSCRLgCEj5g5IQ6jXAcSL2uxNKGqZLD11RpJl3EqXZoqTls4bYH8ghEDgks5bfFQVK9RQ2Y0HUt8fIblUXL_jairHEfNtUwT1CbLlcCFMbvKMNtlYv0d7gajoCV0fGkwBGD19QaZL2Kuy?width=1217&height=611&cropmode=none)
-	
+	- Upon starting up the app you are greeted by the main page where you can create an acccount, log in, or lookup restaurants. A user is not required to log in until they try to leave a review.
+	- When clicking on the "Create Account" link the user is asked for a name, username, and password.
+	- After created an account the user is returned to the main menu where they can click the "Log In" link.
+	- The "Restaurant Lookup" link takes the user to a page with all the restaruants and links to see details about each.
+	- The "Details" link will show the user all the reviews for that restaurant and allow user to add a review.
+	- If no reviews have been left for a restaurant, the page will instead propmt the user to be the first to leave a review of that restaurant.
+### OneDrive images of website useage:
+https://1drv.ms/u/s!AjA6p_tWtk_YgSQqVSMnzLBRmQXH?e=oEyNyp
