@@ -24,6 +24,6 @@
 	- After created an account the user is returned to the main menu where they can click the "Log In" link.
 	- The "Restaurant Lookup" link takes the user to a page with all the restaruants and links to see details about each.
 	- The "Details" link will show the user all the reviews for that restaurant and allow user to add a review.
-	- If no reviews have been left for a restaurant, the page will instead propmt the user to be the first to leave a review of that restaurant.
+	- If no reviews have been left for a restaurant, the page will propmt the user to be the first to leave a review of that restaurant.
 ### OneDrive images of website useage:
 https://1drv.ms/u/s!AjA6p_tWtk_YgSQqVSMnzLBRmQXH?e=oEyNyp
