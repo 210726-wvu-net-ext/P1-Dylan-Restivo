@@ -1,22 +1,23 @@
-# Revature-Project1
-# Restaurant Reviews (Eatery Evals)
+# Eatery Evals
+## Project Description
+	- This program allows users to create an accound and log in, view reviews for carious restaurants, and leave their own reviews.
 ## Technologies used
 	- C#
 	- Asp.Net MVC
 	- Microsoft Entityframework
 	- Microsoft Azure Sql Server
-	- Microsoft Azure App Services (Hosting)
-	- Github Actions (CI)
-	- Microsoft Azure DevOps (Pipeline)
+	- Microsoft Azure App Services
+	- Github Actions
+	- Microsoft Azure DevOps
 	- SeriLog
 	- SonarCloud
 
-## Purpose
-	- Allow users to sign up or log in
-	- Allow users to see reviews and restaurants
+## Features
+	- Allows users to create an account
+	- Allows users to log in
+	- Allow users to see restaurants and their assosciated reviews
 	- Allow users to add reviews
-
-
-
------------------------------------------
-Repo must have a README file with at least with - Title of the Project, An Explanation and Overview of the project, List of features implemented, Technologies used, How to set up / get started using it, Usage of the project, Contributors and License information
+## Usage
+	- Upon starting up the app you are greeted by the main page where you can create an acccount, log in, or lookup restaurants. A user isnt required to login until they try to leave a review.
+	![EateryEvals main page](C:/Users/MMooKow/Pictures/EateryEvals1.png)
+	
