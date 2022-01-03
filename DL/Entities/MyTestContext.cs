@@ -30,17 +30,14 @@ namespace DL.Entities
             {
                 entity.ToTable("Admin");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.Password)
-                    .IsRequired()
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Admins)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Admin__UserId__236943A5");
+                    .HasConstraintName("FK__Admin__UserId__3C34F16F");
             });
 
             modelBuilder.Entity<Restaurant>(entity =>
@@ -75,12 +72,13 @@ namespace DL.Entities
                 entity.HasOne(d => d.Restaurant)
                     .WithMany(p => p.Reviews)
                     .HasForeignKey(d => d.RestaurantId)
-                    .HasConstraintName("FK__Reviews__Restaur__208CD6FA");
+                    .HasConstraintName("FK__Reviews__Restaur__395884C4");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Reviews)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Reviews__UserId__1F98B2C1");
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK__Reviews__UserId__3864608B");
             });
 
             modelBuilder.Entity<User>(entity =>
